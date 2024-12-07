@@ -1,0 +1,114 @@
+ Uncertainty principle
+ uncertainty principle states that it is impossible to simultaneously determine both position and momentum of a particle with perfect accuracy.
+ Mathematical forms
+ delta x delta p >= h/4pi
+ de dt >.h/4pi
+ dl d(theta) >= h/4pi
+ if uncertainty of one variable is decreased the uncertainty of other variable increases
+
+key concepts of quantum mechanics
+energy is quantized
+heiseberg's uncertainty principle
+wave particle duality
+probability and wave function
+
+
+application of uncertainty principle
+
+natural line broadening
+
+when an atom of exited state emit photons and  transitions to lower energy state  the emitted photon has a characteristic frequency that corresponding to the energy difference between the two states.  according to uncertainity principle the since the time is very low the uncertainity in energy must be very high so it result in broadening of atomic spectra
+
+average life time  of excited atom is in range of 10^-8s therefore the uncertainty in frequency is in range of 8*10^6hz therefore spectral line brodens
+de dt >=h/4pi
+de = h/4pidt
+de = 7.9 *10e-6
+
+absence of electron in the nucleus
+
+if there is electron in the nucleus the uncertainity in the position of electron will be small so the uncertainity in momentum will be high which will translate to highier energy but the electron emmited during beta emissions is only few megawhats to electrons are absent in the nucleus
+it is much greater than the electrostatic attraction so the high energy makes the electron escape the nucleus
+
+dx = 10^-15m
+dp = h/(4pi dx)
+dp = 9.8MeV
+
+
+
+time dependant schrodinger equation
+psi(x,t) = A e^i(kx -wt)
+h/2pi = (h+)
+k =p/(h+)
+E = h neu
+E = h w/2pi
+E =(h+) w
+
+w =E/(h+) 
+psi(x,t) = A e^i/(h+)(px -Et)
+partial diffrenciation w.r.t x
+d psi/dx = A e^(i/(h+)px-Et) i/(h+)p 
+d^2 psi/dx^2 = A e^(i/(h+)px-Et) (i/(h+)p)^2 
+	= -A e^(i/(h+)px-Et) (p/(h+))^2 
+
+
+partial diffrenciation w.r.t t
+d psi/dt = A e^(i/(h+)px-Et) -i/(h+)E 
+
+E= KE + PE
+p^2/2m + V(x,t)
+p^2 = -(h+) d^psi/dx^2 /psi
+
+E= i(h+) d psi /dt psi
+
+
+i(h+) d psi /dt   = -(h+)^2 d^psi/dx^2 /2m  + V(x,t) psi(x,t)
+
+time independant schrodinger equation
+
+i (h+) d psi /dt + (h+)^2/2m d^2 psi /dx^2 = V(x,t) psi(x,t)
+
+i (h+) d psi(x)  phi(t) /dt + (h+)^2/2m d^2 psi(x) phi(t) /dx^2 = V psi(x) phi(t)
+i (h+)/phi(t)   d phi(t) / dt + (h+)^2/(2m psi(x)) d^2 psi(x)  /dx^2 = V(x)  divide by psi(x) phi(t)
+ 
+i (h+)/phi(t)   d phi(t) /dt  =k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i (h+)   ln phi(t)   =kt
+phi(t) = e^-(ikt/(h+))
+psi(x,t) = psi(x) phi(t)
+d psi(x,t)/dt= psi(x) e^-(ikt/(h+)) -ik/(h+)
+d psi(x,t)/dt= psi(x) phi(t) -ik/(h+)
+d psi(x,t)/dt= psi(x,t) -ik/(h+)
+i(h+) d psi(x,t)/dt= psi(x,t) k
+k=E
+
+
+ -(h+)^2 d^psi/dx^2 /2m  + V(x,t) psi(x,t) = psi(x) E
+ -(h+)^2 d^psi/dx^2 /2m  =  psi(x) E - V(x,t) psi(x,t) 
+
+ d^psi/dx^2 = psi(x)2m/(h+)(E-V(x))
+
+properties of wave function
+continuity and singlevaluedness
+the partial derivatives of a wave function also must be single valued and continuous
+the wave function must approach zero as the distance form the origin approaches infinity
+
+
+
+
+
+
+
