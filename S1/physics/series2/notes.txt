@@ -1,0 +1,95 @@
+N fold degenerate levels on N atoms of solid.
+atoms approaches seperation reduces levels split to N distinct levels.
+N is very large so form continous energy band
+lower energy levels-spread or split less almost unsplit reason-inner subshells don't overlap they are localised even when r is small and stay in the respective atoms.
+from a quantum point of view the wave functions of valence electron overlap  and their overlapping cause the splitting and speading of energy levels.
+bands become wider as we move towards highier energy states because energy of electron becomes larger and region become wider for both outer occupied and unoccupied subshells.
+an electron in a solid can only occupy energy that falls within these energy bands.
+it depends on structure of solid if bands doesn't overlap then the region become forbidden bands or energy gaps.
+if adjacent bands overlap then electron possses a continous distribution of allowed energy levels.
+
+based on energy gap solids can be classified into isulator,semiconductor and conductor
+for insulators the energy gap is larger they are between 3 to 6eV between valence and conduction band.
+only few electrons from the valence band reaches the conduction band even if we thermally excite the atom or apply electric field also pauli exclusion principle prevents the electron movement in filled band.
+they are poor conductors of electricity.
+ZnO, AgCl, Diamond, quartz
+
+for semiconductors the energy gap is between 0.1 to 1eV so they can move from valence band to condction band by thermal excitation or by applying electric field.
+so a free electron current is obtained as few electrons are available in the empty band.
+silicon, germanium.
+there also exist another mechanism that causes electric current the empty places in top of the  filled band called holes they behave as positive electrons and cause the generation of electric current electrons below the holes attain enough energy and obtain the hole due to applied electric field causes theh generation of electric current. 
+
+n-type phosphorous, arsenic 5th group.
+four valence electrons form covalent bonds with electrons  the fifth electron stays in the lattice weakly bound they occupy discete energy level below conduction band causes the conductivity in addition to the thermal excitation.
+more electron charge carriers.
+
+p-type Al, Ga, In 3rd group.
+the acceptor impurity predominates. three electrons form covalent bond so a hole remains  it creates a vacant discete energy level above the valence band.
+they behave as a positive charge carriers and are available in excess.
+
+Conductors their valence band is either partially filled or their conduction and valence band overlaps.
+unoccupied states of electron in uppermost band.
+electrons are available to generate current they offer low resistance.
+silver, copper, Iron, Aluminium.
+
+Intrinsic Semiconductor - transfer of electrons to conduction band and generation of holes in valence band purely due to thermal excitation.
+temperature dependent.
+produce equal number of holes and electron carriers - intrinsic charge carriers -intrinsic conductivity.
+
+density of electron in conduction band.
+we assume :
+	electron in conduction band behave as free particles with effective mass m.
+	the number of conduction electrons per cubic meter that lie between E and E+dE is given by 
+		dnc=N(E)f(E)dE
+		N(E) is density of states at the bottom of conduction band as per quantum mechanics.
+		N(E)= 4pi/h^3(2m)^(3/2)(E-Ec)^(1/2)
+		Ec is the energy at the bottom of the conduction band.
+	the fermi dirac probability function specify the fraciton of all states at energy E occupied under thermal equilibrium is given by
+		f(E)= i/(1+e^(E-Ef)/(kt))
+		k is boltzmann constant T is temperature Ef is Fermi level of crystal.
+	
+	nc= intergral from Ec to Infinity
+		N(E)f(E)d(E)
+	nc=4pi/h^3(2m)^(3/2)^(3/2) intergral Ec to Infinity
+		(E-Ec)^(1/2)/(1+e^((E-Ef)/(kt))dE
+		for E>=Ec and E-Ef>> kT 1 can be neglected
+	nc=4pi/h^3(2m)^(3/2)^(3/2) intergral Ec to Infinity
+		(E-Ec)^(1/2)(e^((Ef-E)/(kt))dE
+	substituting (E-Ec)/kt = x dE=ktdx
+	nc=4pi/h^3(2m)^(3/2)^(3/2)e^((Ef-Ec)/kt) intergral Ec to Infinity
+		(xkt)^(1/2)(e^-xdE
+		with gamma funciton
+		== sqrt(pi)/2
+	nc=2(pi/h^2*2m*kt)^(3/2)e^((Ef-Ec)/kt)
+
+Hole concentration
+1-f(E)
+		1-f(E)=1-((1+e^(E-Ef)/(kt)))^-1
+		E-Ef <<1
+		1-f(E)=1-((1-e^(E-Ef)/(kt)))
+		1-f(E)=e^(E-Ef)/(kt)
+
+ncnh = np= 4(2pi/h^2*kt)^3e^((Ev-Ec)/kt)m*m*
+np= AT^3*e^((-Eg)/kt)
+dependant of Temperature and Energy Gap but not on fermi level.
+for intrensic semiconductor np=ni^2
+##study the n=p and (Ec+Ev)/2+3/4ktlnmh/m
+if mh ==m
+then Ef = (Ec+Ev)/2
+fermi level lies in the middle
+
+for extensic semiconductor
+ for n type fermi level lies close to conduction band
+ for p type it lies close to valence band
+
+ effect of temperature 
+ when we increase temperature they only generate electron hole pairs then the number of electrons generated become equal to the holes at some point by breaking of covalent bonds although its conductivity is highier .
+
+
+
+	
+
+
+
+
+
