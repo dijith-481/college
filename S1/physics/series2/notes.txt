@@ -28,7 +28,7 @@ the acceptor impurity predominates. three electrons form covalent bond so a hole
 they behave as a positive charge carriers and are available in excess.
 
 Conductors their valence band is either partially filled or their conduction and valence band overlaps.
-unoccupied states of electron in uppermost band.
+there are unoccupied states of electron in uppermost band.
 electrons are available to generate current they offer low resistance.
 silver, copper, Iron, Aluminium.
 
