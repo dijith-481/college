@@ -1,19 +1,14 @@
 def mergesort(arr):
-    print("current arr: ", arr)
-    input()
     n = len(arr)
     if n <= 1:
         return arr
     m = n // 2
-    print("sorting left")
     left = mergesort(arr[:m])
-    print("sorting right")
     right = mergesort(arr[m:])
     return merge(left, right)
 
 
 def merge(l, r):
-    print("merging: ", l, r)
     nl, nr = len(l), len(r)
     merged = [None] * (nl + nr)
     i = j = k = 0
@@ -33,7 +28,6 @@ def merge(l, r):
         merged[k] = r[j]
         j += 1
         k += 1
-    print("merge completed: ", merged)
     input()
     return merged
 
