@@ -1,4 +1,4 @@
-def mergesort(arr):
+def mergesort(arr: list[int]) -> list[int]:
     n = len(arr)
     if n <= 1:
         return arr
@@ -8,27 +8,26 @@ def mergesort(arr):
     return merge(left, right)
 
 
-def merge(l, r):
-    nl, nr = len(l), len(r)
-    merged = [None] * (nl + nr)
+def merge(left, r: list[int]) -> list[int]:
+    nl, nr = len(left), len(r)
+    merged = [0] * (nl + nr)
     i = j = k = 0
     while i < nl and j < nr:
-        if l[i] < r[j]:
-            merged[k] = l[i]
+        if left[i] < r[j]:
+            merged[k] = left[i]
             i += 1
         else:
             merged[k] = r[j]
             j += 1
         k += 1
     while i < nl:
-        merged[k] = l[i]
+        merged[k] = left[i]
         i += 1
         k += 1
     while j < nr:
         merged[k] = r[j]
         j += 1
         k += 1
-    input()
     return merged
 
 

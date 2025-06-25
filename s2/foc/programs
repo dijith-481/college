@@ -1,0 +1,35 @@
+Shell scripting program list
+
+1.hello world
+2.add two numbers
+3.check if the number is even or odd
+4.factorial of a number 
+5.simple calculator
+6.check if a file exists
+Program list 2
+1.Write a shell script function for addition, subtraction, multiplication, division, allow user to choose the operation and enter two numbers
+
+2.write a Shell script that uses a recursive function to calculate factorial of given numbers
+
+3.create a shell script that present a menu
+  Display date
+  List files
+  Show current directory 
+  Exit
+
+4.write a shell script program using case statement to print your favourite colour,take 15 colour as command line argument
+Program list 3
+1.length of given string
+2.concstenates 2 string
+3.extracting a substring (expr,)
+4.deleting substring 
+5.write a shell script program to check whether a given string is palindrome or note
+Program list 4
+Write a shell script that
+1.creates an array of 5 elements 
+2.print all elements of the array 
+3.accesses and print second element 
+4.add a new element to array
+5.remove an element 
+6.finds the length 
+7.search for specific elements in the array
