@@ -1,0 +1,39 @@
+body {
+  font-family: Impact, "Arial Narrow Bold", sans-serif;
+  height: 100vh;
+  width: 100vw;
+  background-color: #232012;
+  color: #dedede;
+}
+h1 {
+  text-align: center;
+  color: #a0face;
+  font-size: 40px;
+}
+p {
+  line-height: 2rem;
+  text-align: center;
+  margin: 4px;
+  padding: 4px;
+}
+button {
+  background-color: red;
+  color: white;
+}
+button:hover {
+  background-color: green;
+}
+img {
+  width: 120px;
+  height: 120px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: #dedede;
+}
+table,
+th,
+td {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #dedede;
+}

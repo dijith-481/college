@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>image slider</title>
+  </head>
+  <body>
+    <div style="width: 400px; height: 400px; position: relative">
+      <img id="image" src="image1.png" width="400" height="400" />
+      <button
+        onClick="prevImage()"
+        style="position: absolute; left: 0; top: 50%; width: auto; height: 50px"
+      >
+        prev
+      </button>
+
+      <button
+        onClick="nextImage()"
+        style="
+          position: absolute;
+          right: 0;
+          top: 50%;
+          width: auto;
+          height: 50px;
+        "
+      >
+        next
+      </button>
+    </div>
+    <script>
+      let images = ["image1.png", "image2.png", "image3.png"];
+      let index = 0;
+      let image = document.getElementById("image");
+      function showImage() {
+        image.src = images[index];
+      }
+      function prevImage() {
+        index = (index + 1) % 3;
+        console.log(index);
+        showImage();
+      }
+      function nextImage() {
+        index = (index + 1) % 3;
+        console.log(index);
+        showImage();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+# module 1
+
+ - ideation
+    - process of genrating developing and communicating new ideas
+    - helps to come up with potential new innovative ideas
+    - thinking outside of the box generally
+- innovation
+    - it is the process of coming up with novel ideas that can do a positive impact to the business,society  etc with a product or service
+    - create value to the society  novel idea
+-  keys of innovation
+    - novelty 
+    - value creation
+    - problem solving
+    - practical implementation
+- types of innovation 
+    - product innovation 
+    - process innovation
+    - technological innovation
+    - technical innovation
+    - social innovation
+-  framework of innovation
+    - design thininkg frame work - user centric  empathy understand user in a non linear way tries to talk deeply with user to come up with  innovations.
+    - agile methadology 
+        - short sprints of few weeks focusing on a feature and working on it 
+    - lean startup 
+        - focus on most viable product so gives faster development good for startups
+    - stage gate process structured way with checkpoints
+    - blue ocean it tries to create a untapped market  demand
+- Entrepreneurship mindset
+    -  opportunity Recognition 
+    - Resilience
+    - innovation
+    - Risk-Taking
+    - Leadership
+    - adaptability 
+    - self motivation
+- objectives of ipr 
+    - promote innovation
+    - protect original creation
+    - facilitates trade
+    - attract innovations
+- types of ipr
+    - patent
+    - trademark
+    - tradesecret
+    - geographical indication
+    - copyright
+    - industrial design
+- patent
+    - protect original  inventions
+    - given for specific amount of time
+    - prevents others from selling copying the invention
+    - most difficult to obtain
+- trademark 
+    - it is given to designs logos symbols 
+    - mainly given to organisations to recoganise
+    - prevents impersonation
+- role of ipr
+    - attracts investment
+    - make achiving finacial loans easier
+    - enable licensing and revenue
+    -  supports loans and grants
+    - protect investment
+    - provide competative advantage
+        - monopoly in innovations
+        - prevents copying
+        - encourages customer loyalty
+- strong team importance
+    - improves productivity 
+    - improves morale
+    - efficient utilisation of resource
+    - faster development
+    - provides immotional and mental support
+    - provides safe place for work
+- skil sets
+    - leadership
+    - hardskills
+         - tech ,industry,project management ,
+    - soft skills
+        - communication,empathy,problem solving conflict resolution
+- team dynamics
+    - trust and respect
+    - communication
+    - conflict resolution
+    - roles and responsibility
+    - reorganisation
+    - d&i
+- identifying painpoints and problem statement
+    - listen to stakeholders
+    - gather feedback
+    - do focus groups
+    - do surveys
+    - benchmark against best practices
+    - analyse data
+- develop a problem statement
+    - problem statement
+    - provide context
+    - be highly specific
+    - highlight impact
+- idea generation method
+    - scamber 
+        - substitute
+        - compine
+        - adapt
+        - modify 
+        - put into another use
+        - eliminate
+        - reverse
+    - mindmapping 
+    - Brainstorming
+    - design thinking
+    - trend watching
+- developing and refining ideas
+    - swot analysis
+        - strength
+        - weakness
+        - opportunities
+        - threats
+    - prototyping
+    - evaluvating ideas
+    - co creatiion
+    - scenerio planing
+- developing  strategies to bring ideas into life
+    - strateginc plan
+    - business case
+    - pilot testing
+    - partnerships
+    - communication and branding
+    - launch plan
+    - repeated testing
