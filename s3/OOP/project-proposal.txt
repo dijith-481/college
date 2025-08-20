@@ -1,0 +1,71 @@
+
+GOVT. MODEL ENGINEERING COLLEGE, THRIKKAKARA
+
+(Managed by IHRD, A Govt. of Kerala Undertaking)
+“Evolve into an academy of excellence to serve the knowledge society”
+
+DEPARTMENT OF COMPUTER ENGINEERING
+
+“Evolve into a centre of excellence to serve the emerging knowledge society”
+
+July 2025
+
+Academic Year 2025-2026
+
+Object Oriented Programming PBCST304
+Mini Project Proposal
+1. Title of the Mini Project
+
+RESTful Schema-Aware Data Integration and Transformation API
+
+2. Team Members
+Roll No.	Name	Email ID
+MDL24CSBS023 	Dijith Dinesh  dijithdinesh481@gmail.com
+
+3. Project Guide
+
+Name: Dr./Mr./Ms. [Guide Name]
+Designation: [Assistant Professor, etc.]
+
+4. Problem Statement
+
+In modern software development, client applications are often tightly coupled to the database schema of backend services. Any change in the backend, such as renaming a column or altering a data structure, can cause "breaking changes," forcing a costly update cycle for all client applications. This brittleness leads to catastrophic failures, as seen in the Mars Climate Orbiter's metric-imperial unit mismatch, and significant financial losses, like the 2012 Knight Capital trading bug caused by a software deployment issue.
+
+This tight coupling forces client-side developers to write repetitive boilerplate code for data parsing and transformation, introduces inefficiency, and prevents the establishment of a centralized, single source of truth for data access. Furthermore, exposing database structures, even indirectly, without a secure, managed abstraction layer poses significant security risks. This project aims to solve these issues by creating a universal API that decouples clients from the physical database schema.
+
+5. Objectives
+
+The primary objectives of this project are:
+
+To design and implement a RESTful API that serves as an abstraction layer over a database, completely hiding the underlying schema from clients.
+
+To develop a dynamic and robust query engine that allows clients to fetch, filter, sort, and paginate data using simple, intuitive URL parameters (e.g., &where=price:gt:100), abstracting away the complexity of SQL.
+
+To implement on-the-fly data transformation, allowing clients to request data in their desired format (JSON, CSV, XML) and dynamically rename data fields  without any backend code changes.
+
+To integrate a secure, role-based access control (RBAC) mechanism using API keys, defining distinct permissions for read-only, write, and administrative access to protect data resources.
+
+To extensively apply Object-Oriented Programming principles, including inheritance (in request handlers and exporters), polymorphism (for handling different data formats and requests), abstraction (the entire API layer), and encapsulation (hiding implementation details in DatabaseManager and other components).
+
+6. Proposed Solution / Methodology
+
+The proposed solution is a standalone, schema-aware API server built in Java. It features modular request handling, secure database interactions, dynamic query processing, and flexible data output. A robust security model enforces access control based on API keys.
+
+7. Expected Outcome
+
+The project will deliver a functional, well-documented RESTful API server in Java, supporting data operations, schema discovery, view management, and administrative tasks. It will demonstrate dynamic querying, flexible data output, and robust access control, with clear, modular source code.
+
+Declaration
+
+We affirm that this mini project proposal is the result of our own effort and creativity. It has not been copied from any existing work and complies with the academic integrity policies of Model Engineering College.
+
+Date: [Insert Date]
+Signature of Team Leader: _________________________
+
+Approval
+
+Project Approved
+
+Project Guide
+Name: Dr./Mr./Ms. [Guide Name]
+Designation: [Assistant Professor, etc.]
