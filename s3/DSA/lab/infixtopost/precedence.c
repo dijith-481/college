@@ -14,7 +14,7 @@ int precedence(char ch) {
 }
 
 int is_operator(char c) {
-    return (c == '+' || c == '-' || c == '*' || c == '/');
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c== '^');
 }
 
 int perform_operation(int op1, int op2, char operator) {
@@ -22,6 +22,12 @@ int perform_operation(int op1, int op2, char operator) {
         case '+': return op1 + op2;
         case '-': return op1 - op2;
         case '*': return op1 * op2;
+	case '^':
+		int s=1;
+		for (int i=op2;i>=1;i--){
+			s*=op1;
+		}
+		return s;
         case '/': 
             if (op2 == 0) {
                 printf("Error: Division by zero!\n");
