@@ -53,9 +53,9 @@ void display(Queue q) {
 }
 
 int circularIsFull(Queue q) {
-  if (q.rear == (q.front + 1) % MAX) {
+  if ((q.rear + 1) % MAX == q.front) {
     printf("Circular queue is full");
-    return 11;
+    return 1;
   }
   return 0;
 }
@@ -72,6 +72,9 @@ Queue circularEnqueue(Queue q, int item) {
   if (circularIsFull(q)) {
     return q;
   }
+  if (q.front == -1) {
+    q.front = 0;
+  }
   q.rear = (q.rear + 1) % MAX;
   q.data[q.rear] = item;
   return q;
@@ -83,11 +86,13 @@ int circularDequeue(Queue q) {
     return -1;
   }
   int item = q.data[q.front];
-  q.front = (q.front + 1) % MAX;
   if (q.front == q.rear) {
     q.front = -1;
     q.rear = -1;
+  } else {
+    q.front = (q.front + 1) % MAX;
   }
+
   return item;
 }
 

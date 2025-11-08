@@ -48,24 +48,24 @@ int bfs() {
   node_push(0, 7, 4, -1);
   while (node_top < rear) {
     State s = node_stack[node_top];
-    node_top++;
     if (s.b == 2 || s.c == 2) {
-      print_path(node_top - 1);
+      print_path(node_top);
       return 1;
     }
     int a = s.a, b = s.b, c = s.c;
     int amount = b + a < cap_b ? a : cap_b - b;
-    node_push(a - amount, b + amount, c, node_top - 1);
+    node_push(a - amount, b + amount, c, node_top);
     amount = c + a < cap_c ? a : cap_c - c;
-    node_push(a - amount, b, c + amount, node_top - 1);
+    node_push(a - amount, b, c + amount, node_top);
     amount = a + b < cap_a ? b : cap_a - a;
-    node_push(a + amount, b - amount, c, node_top - 1);
+    node_push(a + amount, b - amount, c, node_top);
     amount = c + b < cap_c ? b : cap_c - c;
-    node_push(a, b - amount, c + amount, node_top - 1);
+    node_push(a, b - amount, c + amount, node_top);
     amount = a + c < cap_a ? c : cap_a - a;
-    node_push(a + amount, b, c - amount, node_top - 1);
+    node_push(a + amount, b, c - amount, node_top);
     amount = b + c < cap_b ? c : cap_b - b;
-    node_push(a, b + amount, c - amount, node_top - 1);
+    node_push(a, b + amount, c - amount, node_top);
+    node_top++;
   }
   return 0;
 }

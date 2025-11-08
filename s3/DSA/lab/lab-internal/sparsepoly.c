@@ -4,7 +4,7 @@ typedef struct {
   int exp;
 } Poly;
 
-void add(Poly p1[], Poly p2[], Poly ps[], int n1, int n2, int *nr) {
+void add(Poly *p1, Poly *p2, Poly *ps, int n1, int n2, int *nr) {
   int i = 0, j = 0, k = 0;
   while (i < n1 && j < n2) {
     if (p1[i].exp > p2[j].exp) {

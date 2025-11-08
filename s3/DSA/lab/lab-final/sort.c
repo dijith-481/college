@@ -43,7 +43,7 @@ void bubbleSort(Arr arr) {
 }
 
 void merge(int *a, int l, int m, int r) {
-  int nl = m - l + 1;
+  int nl = m - l;
   int nr = r - m;
   int i = 0, j = 0, k = l;
   int L[nl], R[nr];
@@ -51,7 +51,7 @@ void merge(int *a, int l, int m, int r) {
     L[n] = a[l + n];
   }
   for (int n = 0; n < nr; n++) {
-    R[n] = a[m + n + 1];
+    R[n] = a[m + n];
   }
   while (i < nl && j < nr) {
     if (L[i] <= R[j]) {
@@ -77,16 +77,16 @@ void merge(int *a, int l, int m, int r) {
 
 void merge_sort(int *a, int start, int end) {
 
-  if (start >= end)
+  if (start >= end - 1)
     return;
   int mid = (start + end) / 2;
   merge_sort(a, start, mid);
-  merge_sort(a, mid + 1, end);
+  merge_sort(a, mid, end);
   merge(a, start, mid, end);
 }
 
 void mergeSort(Arr arr) {
-  merge_sort(arr.a, 0, arr.n - 1);
+  merge_sort(arr.a, 0, arr.n);
   for (int i = 0; i < arr.n; i++) {
     printf("%d\t", arr.a[i]);
   }
@@ -96,32 +96,101 @@ void mergeSort(Arr arr) {
 int partition(int *a, int l, int r) {
   int pivot = a[l];
   int j = l;
-  for (int i = l + 1; i <= r; i++) {
+  for (int i = l + 1; i < r; i++) {
     if (a[i] < pivot) {
       j++;
       int temp = a[i];
       a[i] = a[j];
       a[j] = temp;
     }
-    }
-    int temp=a[j];
-    a[j]=a[l];
-    a[l]=temp;
-
+  }
+  int temp = a[j];
+  a[j] = a[l];
+  a[l] = temp;
 
   return j;
 }
 
+int partition_2(int *a, int l, int r) {
+  int pivot = a[l];
+  int i = l;
+  int j = r - 1;
+
+  while (1) {
+
+    do {
+      i++;
+    } while (i < r && a[i] < pivot);
+
+    do {
+      j--;
+    } while (j >= l && a[j] > pivot);
+
+    if (i >= j) {
+
+      break;
+    }
+
+    int temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+  }
+
+  int temp = a[l];
+  a[l] = a[j];
+  a[j] = temp;
+
+  return j;
+}
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+// Partition function (first element as pivot)
+// blog:https://dslabktu2024.blogspot.com/2025/04/quick-sort.html
+int partition_3(int arr[], int low, int high) {
+  int pivot = arr[low]; // choose first element as pivot
+  int i = low + 1;
+  int j = high - 1;
+
+  while (1) {
+    // move i forward while elements are <= pivot
+    while (i <= high - 1 && arr[i] <= pivot) {
+      i++;
+    }
+    // move j backward while elements are > pivot
+    while (j >= low && arr[j] > pivot) {
+      j--;
+    }
+
+    if (i < j) {
+      swap(&arr[i], &arr[j]);
+    } else {
+      break;
+    }
+  }
+  // place pivot in correct position
+  swap(&arr[low], &arr[j]);
+
+  return j; // return pivot index
+}
+
 void quick_sort(int *a, int l, int r) {
-  if (l >= r)
+  if (l >= r - 1)
     return;
   int p = partition(a, l, r);
-  quick_sort(a, l, p - 1);
+  for (int i = 0; i < r - l; i++) {
+    printf("%d\t", a[i]);
+  }
+  printf("\n");
+  quick_sort(a, l, p);
   quick_sort(a, p + 1, r);
 }
 
 void quickSort(Arr arr) {
-  quick_sort(arr.a, 0, arr.n - 1);
+  quick_sort(arr.a, 0, arr.n);
   for (int i = 0; i < arr.n; i++) {
     printf("%d\t", arr.a[i]);
   }
@@ -149,7 +218,6 @@ void countSort(int *a, int n, int exp) {
   for (int i = 0; i < n; i++) {
     a[i] = output[i];
   }
-
 }
 
 int getMax(int *a, int n) {
@@ -173,12 +241,13 @@ void radixSort(Arr arr) {
 
 int main() {
   Arr arr = {.n = 62,
-  .a = {9,   3,   65,  75,   3,  4,  56,  7,   4, 3,    30, 56, 33,
-  7,   5,   5,   6,    76, 7,  6,   47,  7, 5,    7,  76, 757,
-  857, 756, 757, 8,    43, 5,  325, 37,  7, 8,    5,  75, 645,
-  87,  98,  9,   6868, 8,  9,  89,  678, 0, 6,    3,  5,  5,
-  2,   2,   4,   25,   6,  78, 9,   68,  7, 46746}};
+             .a = {9,   3,   65,  75,   3,  4,  56,  7,   4, 3,    30, 56, 33,
+                   7,   5,   5,   6,    76, 7,  6,   47,  7, 5,    7,  76, 757,
+                   857, 756, 757, 8,    43, 5,  325, 37,  7, 8,    5,  75, 645,
+                   87,  98,  9,   6868, 8,  9,  89,  678, 0, 6,    3,  5,  5,
+                   2,   2,   4,   25,   6,  78, 9,   68,  7, 46746}};
   // Arr arr = {.n = 7, .a = {8, 4, 2,4,8, 6, 0}};
+  Arr a = {.n = 6, .a = {25, 2, 25, 25, 25, 80}};
 
   for (int i = 0; i < arr.n; i++) {
     printf("%d\t", arr.a[i]);
@@ -191,7 +260,7 @@ int main() {
   printf("merge");
   mergeSort(arr);
   printf("quick\n");
-  quickSort(arr);
+  quickSort(a);
   printf("radix\n");
   radixSort(arr);
 }

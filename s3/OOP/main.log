@@ -1,0 +1,239 @@
+This is TeX, Version 3.141592653 (TeX Live 2026/dev/Arch Linux) (preloaded format=tex 2025.10.21)  21 OCT 2025 22:12
+**main.tex
+(./main.tex
+! Undefined control sequence.
+l.8 \documentclass
+                  [12pt, a4paper]{report}
+? 
+! Undefined control sequence.
+l.11 \usepackage
+                [a4paper, margin=1in]{geometry} % Set margins
+? 
+! Undefined control sequence.
+l.12 \usepackage
+                {graphicx}                     % For including images (logo)
+? 
+! Undefined control sequence.
+l.13 \usepackage
+                {times}                        % Use Times font for a classi...
+
+? 
+! Undefined control sequence.
+l.14 \usepackage
+                {amsmath, amssymb}             % For math symbols if needed
+? 
+! Undefined control sequence.
+l.15 \usepackage
+                {hyperref}                     % For clickable links in the PDF
+
+? 
+! Undefined control sequence.
+l.16 \usepackage
+                {fancyhdr}                     % For custom headers and footers
+
+? 
+! Undefined control sequence.
+l.17 \usepackage
+                [toc,page]{appendix}           % For appendices
+? 
+! Undefined control sequence.
+l.18 \usepackage
+                {listings}                     % For code snippets
+? 
+! Undefined control sequence.
+l.19 \usepackage
+                {tocbibind}                    % Adds ToC, LoF, LoT to the ToC
+? 
+
+Overfull \hbox (3.88498pt too wide) in paragraph at lines 11--20
+[]\tenrm [a4paper, mar-gin=1in]geometry graph-icx times ams-math, amssymb hy-pe
+r-ref fan-cy-hdr [toc,page]appendix|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm [
+.\tenrm a
+.\tenrm 4
+.\tenrm p
+.etc.
+
+! Undefined control sequence.
+l.22 \hypersetup
+                {
+? 
+! Undefined control sequence.
+l.32 \pagestyle
+               {fancy}
+? 
+! Undefined control sequence.
+l.33 \fancyhf
+             {} % Clear all header and footer fields
+? 
+! Undefined control sequence.
+l.34 \fancyhead
+               [L]{RESTful Schema-Aware Data Integration API}
+? 
+! Undefined control sequence.
+l.35 \fancyhead
+               [R]{\nouppercase{\leftmark}}
+? 
+! Undefined control sequence.
+l.35 \fancyhead[R]{\nouppercase
+                               {\leftmark}}
+? 
+! Undefined control sequence.
+l.35 \fancyhead[R]{\nouppercase{\leftmark
+                                         }}
+? 
+! Undefined control sequence.
+l.36 \fancyfoot
+               [C]{\thepage}
+? 
+! Undefined control sequence.
+l.36 \fancyfoot[C]{\thepage
+                           }
+? 
+! Undefined control sequence.
+l.37 \renewcommand
+                  {\headrulewidth}{0.4pt}
+? 
+! Undefined control sequence.
+l.37 \renewcommand{\headrulewidth
+                                 }{0.4pt}
+? 
+! Undefined control sequence.
+l.38 \renewcommand
+                  {\footrulewidth}{0.4pt}
+? 
+! Undefined control sequence.
+l.38 \renewcommand{\footrulewidth
+                                 }{0.4pt}
+? 
+! Undefined control sequence.
+l.41 \begin
+           {document}
+? 
+! Undefined control sequence.
+l.44 \begin
+           {titlepage}
+? 
+! Undefined control sequence.
+l.46     \vspace
+                *{1cm}
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   *
+l.46     \vspace*
+                 {1cm}
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   *
+l.46     \vspace*
+                 {1cm}
+? 
+! Undefined control sequence.
+l.48     {\Huge
+                \textbf{RESTful Schema-Aware Data Integration \& Transformat...
+
+? 
+! Undefined control sequence.
+l.48     {\Huge \textbf
+                       {RESTful Schema-Aware Data Integration \& Transformat...
+
+? 
+! Undefined control sequence.
+l.50     \vspace
+                {1.5cm}
+? 
+! Undefined control sequence.
+l.52     {\Large
+                 \textbf{Object Oriented Programming Project Report}}
+? 
+! Undefined control sequence.
+l.52     {\Large \textbf
+                        {Object Oriented Programming Project Report}}
+? 
+! Undefined control sequence.
+l.54     \vspace
+                {2cm}
+? 
+! Undefined control sequence.
+l.56     {\large
+                 \textbf{Submitted by:}}
+? 
+! Undefined control sequence.
+l.56     {\large \textbf
+                        {Submitted by:}}
+? 
+! Undefined control sequence.
+l.58     \vspace
+                {1cm}
+? 
+! Undefined control sequence.
+l.60     \begin
+               {tabular}{ll}
+? 
+! Undefined control sequence.
+l.61         \textbf
+                    {Aaron Paul} & \textbf{MDL24CSBS002} \\
+? 
+! Misplaced alignment tab character &.
+l.61         \textbf{Aaron Paul} &
+                                   \textbf{MDL24CSBS002} \\
+? 
+! Undefined control sequence.
+l.61         \textbf{Aaron Paul} & \textbf
+                                          {MDL24CSBS002} \\
+? 
+Runaway argument?
+ \textbf {Athuljith S} & \textbf {MDL24CSBS021} \\ \textbf {Dijith Di\ETC.
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+l.67 
+     
+? 
+! Undefined control sequence.
+l.70     \includegraphics
+                         [width=0.3\textwidth]{logo.png} % Your college logo
+? 
+! Undefined control sequence.
+l.70     \includegraphics[width=0.3\textwidth
+                                             ]{logo.png} % Your college logo
+? 
+! Undefined control sequence.
+l.72     \vspace
+                {0.5cm}
+? 
+! Undefined control sequence.
+l.74     {\large
+                 \textbf{Department of Computer Engineering}} \\
+? 
+! Undefined control sequence.
+l.74     {\large \textbf
+                        {Department of Computer Engineering}} \\
+? 
+Runaway argument?
+ {\large \textbf {Govt. Model Engineering College, Thrikkakara}} \\ {\ETC.
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+l.77 
+     
+? 
+! Undefined control sequence.
+l.78     \vspace
+                {1cm}
+? 
+! Undefined control sequence.
+l.80     {\large
+                 \today}
+? 
+! Undefined control sequence.
+l.80     {\large \today
+                       }
+? 
+[1] )
+Output written on main.dvi (1 page, 1040 bytes).
