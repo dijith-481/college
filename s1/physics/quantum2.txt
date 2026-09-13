@@ -1,0 +1,46 @@
+time dependant schrodinger equation
+psi(x,t)= Ae^i(kx-wt)
+h/2pi=h+
+k=p/h+
+E=h neu
+E= h w/2pi
+E=h+ w
+W=E/h+
+
+psi(x,t)= Ae^i/h+(px-Et)
+
+do psi/do x = psi(x,t) ip/h+
+do^2 psi/do x^ = psi(x,t) -1p^2/h+^2
+p^2=-do^2 psi /do x^2 /psi(x,t) h+^2
+
+do psi /do t = psi(x,t)  -Ei/h+
+E= do psi /do t h+i/psi(x,t)
+E =KE +PE
+E= P^2/2m + V(x,t)
+
+do psi /do t h+i = -do^2 psi /do x^2 /psi(x,t) h+^2/2m + V(x,t)
+i h+ do psi /do t = -h+/2m do^2 psi /do x^2  + V(x,t)psi(x,t)
+
+
+Time independant schrodinger equation
+
+i h+ do psi /do t = -h+/2m do^2 psi /do x^2  = V(x,t)psi(x,t)
+
+i h+ do psi x phi t /do t = -h+/2m do^2 psi x phi t /do x^2  + V(x,t)psi(x) phi t
+
+i h+ do  phi t /do t/phi t = -h+/2m do^2 psi x  /do x^2 psi x + V(x,t)
+
+i h+ do phi /do t /phi t = k
+do phi /do t = k/ih+ phi t
+phi = e^k/ih+ kt
+
+psi (x,t) = psi (x)  e^/ih+ kt
+ do psi /do t = psi (x)  e^/ih+ kt k
+ do psi /do t = -i/h+ k psi
+  i h+ do psi /do t = k psi
+
+
+E psi = -h+^2/2m do^2 psi /do x^2  + V(x,t)psi(x,t)
+
+ do^2 psi / do x^2 = 2mpsi (E-V)/-h+ 
+

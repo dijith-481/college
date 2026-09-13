@@ -1,0 +1,50 @@
+free electron theory
+free electron theroy formulated by the drude and leter expanded by the lorentz it is based on the electron gas model
+it assumes the electrons at ordinary temperature move in metals at random direction at a speed of 10^5 m/s during these movement they collide with the atoms or lattice   and with themselves they have no practical contribution to the current is zero.
+when an electric potential is given to the metal electrons accelerate in the opposite direction with an average velocity known as drift velocity. In thermal equilibrium electrons are assumed to follow maxwell-boltzmann distribution
+
+Electrical conductivity
+
+I =q/t
+volume of the container is Al
+charge of single electron is e
+n is the number of free electrons in the container
+q is charge 
+
+q = nale
+I= nale/t
+l/t = Vd drift velocity
+I = neaVd
+J =I/A
+J = neVd
+
+from newtons second law
+F =ma=eE
+a= eE/m
+a= vd/to
+vd = eE/m tuo
+
+J = ne^2Etuo/m
+by ohms law J = sigma E
+ne^2 tou/m = sigma
+mobility is Vd/E
+mue = e/m Tuo
+
+
+
+fermi dirac distibution
+f(Ei) = 1/1+ e* a+bEi
+a= -Ef/Kt
+b= 1/Kt
+f(Ei) = 1/1+ e^ Ei-Ef/kt
+
+
+at temperature =0
+
+for E > Ef
+f(E) = 1/1+ e^ Ei-Ef/kt = inf
+f(E)= 0
+for E < Ef
+f(E) = 1/1+ e^ Ei-Ef/kt = -inf
+f(E)= 1
+at highier temperature and Ei<Ef

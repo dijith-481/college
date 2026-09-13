@@ -1,0 +1,68 @@
+quantum mechancis
+
+uncertainty principle
+it states that it is impossible to know both position and momentum of a particle with perfect accuracy at the same time
+ delta x delta p >= h/4pi
+ delta e delta t >= h/4pi
+ delta l delta theta >= h/4pi
+ if uncertainty of one observable increases the uncertainty of other decrease.
+
+
+ absence of electron in the nucleus 
+ if electron is found in nucleus the uncertainty in the  positon of electron decreases to be less than 10^-15  which means that its uncertainty in momentum should increse   the highier uncertainty in momentum translates to highier energy of  electron  
+ dx = 10^ -15
+ dp = 9.8MeV
+ this energy is so high that it will cause the electron to overcome the electrostatic attraction  and escape the nucleus.
+
+
+ natural line broadening
+ when an atom of the excited state emit photons and transitions to the lower state the emitted photon has a characteristic frequency corresponding to the energy difference between the two states  according to uncertainty principle if the uncertainty in time is small then uncertainty in energy must be high 
+ the time is in the range of  10^-8  so the energy is 8* 10^ 10e-6  so the line broadens.
+
+
+
+
+particle in one dimentional box
+
+d^2 psi /d x^2 +2m/h+^2 (E-V)psi =0
+potential is 0 inside the  box
+d^2 psi /d x^2 +2m/h+^2 E psi =0
+d^2 psi /d x^2 =- 2m/h+^2 E psi 
+k^2 = 2mE/h+^2
+d^2 psi /d x^2 =- k^2 psi x
+second order differential equaiton with solution
+psi x = A sin kx + B cos kx
+applying boundary condition
+psi 0 =0
+0= A sin k0 + B cos k0
+0= 0+B
+B=0
+A !=0
+psi x = A sin kx 
+applying second boundary condition x =l
+0= A sin kl 
+sin kl =0
+kl =n pi 
+k =n pi /l
+where n = 0,1,2,3,4,5,....
+k^2 = 2mE/h+^2
+n^2pi^2/l^2 =2mE/h+^2
+n^2pi^2/l^2/2m  h+^2 =E
+n^2/l^2/8m  h^2 =E
+
+normalising wave function 
+ integral  A^2 sin^2 npix/l dx =1
+ integral  A^2 1- cos 2 npix/l dx/2 =1
+ A^2  l/2 =1
+ A = sqrt(2/l)
+
+
+
+
+
+
+
+
+
+
+ 

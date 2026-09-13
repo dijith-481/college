@@ -1,0 +1,6 @@
+formation of bands in solids 
+	there are n energy levels in free atom but when they are close together in a solid their distance get reduced and the split into N distinct levels these levels are numorous and they form continous energy band  lower energy split less and highier elergy split more as lower energy electrons are well inside the atom from a quantum point of view the wave functions of valence electorn overlap and it causes the spearding and splittion of levels.an electron can occupy a level that falls within these bands if adjacent band overlap electron pocesses a continous distribution of allwoed energy levels. based on this level electron can be classified into insulators semiconductors and insulators.
+insulators
+	insulators have a large energy gap between valence and conduction band typically in 3 to 6ev only few electrons reach the conduction band even if they are thermally excited or in the precense of electric field.zno agcl diamond paulis exclusion principle also prevents the movement of electrons in filled bands.
+semiconductors
+they have energy gap of 0.1 to 1ev which can be easily reached by electrons through thermal excitation or by applying electric field 

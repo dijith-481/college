@@ -1,0 +1,83 @@
+uncertainty principle
+uncertainty principle states that it is impossible to simultaneously determine both position and momentum of a particle with perfect accuracy 
+
+key concepts of quantum mechanics
+energy is quantized
+photoelectric effect
+uncertainty
+waveparticle duality
+
+application of uncertainty
+
+natural line broadening
+when an atom of exited state emmit photon  and transmit to lower energy state the emmited photon has a characteristic frequency that corresponding to the energy difference between two states according to uncertainty principle since the uncertainty in time is very low the uncertainty in energy must be very high resulting in broadening of line spectra.
+
+average life time of excited atom = 10^-8
+de dt >=h/4pi
+de = h/(4pi*dt)
+
+absence of electron in nucleus
+if electron is present in nucleus the uncertainty in momentum will be very high since the uncertainty in position is very low that leads to highier kinetic energy  and escape the nucleus  also the energy of electron emmited in beta decay is only few megawatts
+
+time dependand schrodinger equation
+A e^i(kx-wt)
+k = p/(h+)
+w = E/(h+)
+psi(x,t) = A e^i/(h+)(px-Et)
+do psi /dx = A e^ i/(h+)(px-Et) ip/h(+)
+do^2 psi /dx^2 = A e^ i/(h+)(px-Et) -p2/h(+)^2
+do^2 psi /dx^2 = psi -p2/h(+)^2
+
+do psi /dt = A e^ i/(h+)(px-Et) -iE/h(+)
+do psi /dt = psi -iE/h(+)
+
+E=KE +PE
+E= p^2/2m + U
+p^2 = -do^2 psi/do x^2  /psi * h(+)^2
+
+E =  do psi /do t /psi  *i * h(+)
+
+do psi / do t  *i * h(+) = -do^2 psi/do x^2   * h(+)^2/2m + V *psi
+
+time dependand schrodinger equation
+
+do psi / do t  *i * h(+) = -do^2 psi/do x^2   * h(+)^2/2m + V *psi
+do psi x phi t / do t  *i * h(+) = -do^2 psi x phi t/do x^2   * h(+)^2/2m + V *psi
+do   phi t / do t  /phi t *i * h(+) = -do^2 psi x  /do x^2 /psi x  * h(+)^2/2m + V
+
+
+do   phi t / do t  /phi t *i * h(+) = k
+do   phi t   /phi t *i * h(+) = k dt
+ln phi t *i * (h+) = kt
+phi t = e^kt/(i*(h+)
+
+psi x,t = psi x phi t
+psi x,t = psi x * e^kt/(i*(h+)
+do psi /dt  =   psi x * e^kt/(i*(h+)  k/i(h+)
+do psi /dt  =   psi x * phi t  k/i(h+)
+do psi /dt  i(h+)=   psi x * phi t  k
+do psi /dt  i(h+) / psi x,t=  k 
+k =E
+
+
+ -do^2 psi/do x^2    * h(+)^2/2m + V *psi = E psi
+
+
+ 1D potential well
+
+ do ^2 psi/do x^2  - 2m psi/h(+)^2E = 0
+ k^2
+
+ do ^2 psi/do x^2  -  psi k^2 = 0
+psi x = A sin kx + b cos kx
+psi(0) => b =0
+psi(0) at x = l
+A sin kl =0
+kl = n pi
+k = n pi /l
+k^2  = n^2 pi^2/l^2 =  8 pi ^2 mE/h^2
+E = n^2 /l^2 /m * h^2/8
+
+
+
+

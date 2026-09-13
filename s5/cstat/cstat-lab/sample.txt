@@ -1,0 +1,3 @@
+Hello World! This is a Sample Text File.
+How are YOU today? It has 2 Sentences here.
+Python Lab 123 #test!

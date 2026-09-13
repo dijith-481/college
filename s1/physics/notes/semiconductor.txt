@@ -1,0 +1,85 @@
+when electrons are further apart each electron have distinct energy levels
+when these electrons comes together the energy levels starts to overlap  since according to paulis exclusion principle  no two electons can exist in same energy level which leeds to the splitting of energy levels into slightly different energies  when lots of electrons overlap as in solid   these splitting forms a continous energy band   the splitting of outer levels is more than innner levels since the inner electrons not generally take part as the seperation between inner electrons is highier than outer electrons.
+electrons in a solid can only occupy levels with slight energy difference  which leads to empty band formation with no electrons they are known as forbidden energy band or band gap.
+overlapping of the bands depends on the structure of the solid if bands do not overlap energy gap is formed.
+
+solids in which energy gap is between 3 to 6 ev is known as insulators since the gap is large even if we apply electric potential electrons won't have enough energy to pass the energy gap and move from valence band to conduction band. also electrons can't move in filled band due to paulis exclusion principle.
+
+for conductors the valence band and the conduction band overlap   or the valence band is partially filled in both cases the uppermost band has unoccupied states which will result in conduction.
+
+solids in which energy gap is between 0.1 to 1 ev is known as semiconductors since their energy gap is small  some electrons have enough kinetic energy to overcome the potential by thermal excitaiton or by applying a potential. also there are holes in semiconductors which are the unoccupied spaces in the top of the valence band 
+
+
+electron concentration in conduction band
+
+we assume that electron in the conduction band as free particle with mass m
+the number of conduction band electrons with energy lie between E and delta E is given by 
+dnc= NeFede
+where Ne is the density of states at the bottom of the conducton band and is given as per the quantum mechanics as
+Ne = 4pi/h^3 (2m)^3/2 (E-Ec)^1/2
+Fe is the fermi dirac probability function of occupance of electrons in the conduction band.
+Fe = 1/(1+e^E-Ef/kt)
+k is boltzmann constant t is temperature
+
+for E >= Ec and E-Ef >> kt 1 can be neglected
+Fe = 1/(1+e^E-Ef/kt) becomes
+Fe = 1/(e^E-Ef/kt) 
+Fe = (e^Ef-E/kt) 
+Fe = (e^Ec-E/kt) (e^Ef-Ec/kt) 
+let E-Ec/kt = x
+dE = kt dx	
+	
+
+nc = 4pi /h^3 (2m)^3/2 (e^Ef-Ec/kt)  integral   (e^-x)   kx^1/2 kt dx
+nc = 4pi /h^3 (2m)^3/2 (e^Ef-Ec/kt)k^3/2  integral   (e^-x)   x^1/2  dx
+by applying gamma function e^-x x^1/2 = sqrt(pi	)/2
+
+nc = 4pi /h^3 (2m)^3/2 (e^Ef-Ec/kt)k^3/2  sqrt(pi)/2 
+nc =2 *		 2pi /h^2 m^3/2 (e^Ef-Ec/kt)kt   
+
+
+density of holes in the valence band
+	
+for E-Ef/kt >>  1
+Fe =1- 1/(1+e^E-Ef/kt) becomes
+Fe =1- (1+e^E-Ef/kt) ^-1
+Fe =1- (1-e^E-Ef/kt) ^-1
+Fe =e^E-Ef/kt
+Fe = (e^E-Ev/kt) (e^Ev-Ef/kt) 
+let Ev-E/kt = x
+dE = kt dx	
+nc = 4pi /h^3 (2m)^3/2 (e^Ev-Ef/kt)  integral   (e^-x)   kx^1/2 kt dx
+nc = 4pi /h^3 (2m)^3/2 (e^Ev-Ef/kt)k^3/2  integral   (e^-x)   x^1/2  dx
+by applying gamma function e^-x x^1/2 = sqrt(pi	)/2
+nc = 4pi /h^3 (2m)^3/2 (e^Ev-Ef/kt)k^3/2  sqrt(pi)/2 
+nc =2 *		 2pi /h^2 m^3/2 (e^Ev-Ef/kt)kt   
+
+
+Intrensic carrier concentration
+ncnh = 4* (2pi / h^2 mkt^3/2  e^Ev-Ec/kt  
+
+
+m/mh^3/2    = (e^2Ef-(Ec+Ev)/kt)
+
+2Ef -Ec+Ev = 3/2kt log(m/mh)
+
+
+
+
+diode equation
+
+
+I = Ip + Ie
+
+Ip a delta Pn  the hole concentration in n region
+In a delta Np  the electron concentration in p region
+
+by boltzmann relation Pp = Pn e^vb/vt  vb is the barrier potential and vt is the voltage equivalent of the temperature.
+vb = v0
+when forward biased the vb = v0-v where v is the applied voltage
+Pp = Pn+delta Pn   e^ v0-v/vt
+Pn  = (Pn+delta Pn)   e^ -v/vt
+Pn e^v/vt  = Pn+delta Pn   
+Pn (e^v/vt -1 ) = delta Pn   
+Pp e^-v0/vt = Pn   
+Pp e^-v0/vt (e^v/vt -1 ) = delta Pn   

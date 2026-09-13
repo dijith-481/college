@@ -1,0 +1,30 @@
+rectifier efficiency
+neu = output power/input power
+p=i^2r
+idc = 1/2pi { 0 to pi  {id theta
+idc = 1/2pi { 0 to pi  {id vw sin theta/Rf+Rl d theta 
+idc = 1/2pi  vm sin theta / Rf + Rl { 0 to pi  { sin thetad theta 
+idc = 1/2pi  vm sin theta / Rf + Rl  2
+idc = 1/pi  vm sin theta / Rf + Rl  
+idc = 1/pi  im
+pdc=idc^2r
+pdc=im/pi ^2Rl
+
+Pac = i^rms (Rf + RL)
+irms = im/2
+Pac = im/2^2 (Rf + RL)
+
+Pdc/pac =  2/pi ^2  Rl/Rf+Rl
+
+
+full wave rectifier efficiency
+
+neu = output power / input power
+idc = Vm sin theta / Rl + Rf
+idc = 2Im/pi
+irms = im/sqrt 2
+
+
+
+
+

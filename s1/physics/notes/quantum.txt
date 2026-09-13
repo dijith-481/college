@@ -1,0 +1,107 @@
+ uncertainty principle states that it is impossible to determine both position and momentum of a particle at the same time with perfect accuracy.
+ the uncertainty in one quantity increases if other decreases.
+ delta x delta p >=h/4pi
+ delta E delta t >=h/4pi
+ delta l delta theta >=h/4pi
+
+ applications of uncertainty principle
+ 
+ absence of electron in the nucleus
+ if electrons present in the nucleus the uncertainty in the position should be extremely small in the range of 10^-14m
+ according to uncertainty principle if uncertainty in x is small the uncertaintyin p should be large.
+ then
+delta p >=h/4pi/10^-14
+but the energy of the electron is only a fraction of this  therefore we can rule out the existance of electron in the nucleus.
+
+natural line broadening
+
+when electron gets excited to highier energy level and they come back to the lower state energy is released since the electron only stays in the highier energy level for 10^-8 seconds the uncertainty in time is so small therefore according to uncertainty principle the uncertainty in energy should be high
+this high energy uncertainty leeds to the broadening of the spectral line.
+
+ delta  neu delta t >=1/4pi
+
+ wave function doesn't have any physical meaning  but the the square of wavefunction gives the probabilitiy of founding a particle  it is normalised the wave function is continous  the partial derivatives of the wave function is also continous.
+
+ time dependant schrodinger equation
+
+ psi = A e^i(kx-wt)
+ k=2pi/l
+ w=2pi neu
+ E=h neu
+ p=h/l
+ l=h/p
+ k=p/h+
+ w= E/h+ 
+
+ psi = A e^i/h+(px-Et)
+
+ do psi do x= psi(x,t) i/h+ p
+ do^2 psi do x^2= psi(x,t) -1/h+^2 p^2
+ do psi do t= psi(x,t) -i/h+ E
+ ih+do psi do t/psi(x,t)= E
+ -h+^2 do^2 psi do x^2/ psi(x,t)=   p^2
+
+ E= KE +PE
+ KE = p^2/2m
+ PE=V(x,t)
+ ih+do psi /do t=-h+^2 do^2 psi /do x^2 /2m + V(x,t)psi(x,t)
+
+
+ time independant schrodinger equation
+
+psi(x,t) = psi(x)phi(t)
+ ih+do psi /do t=-h+^2 do^2 psi /do x^2 /2m + V(x,t)psi(x,t)
+ ih+do psi x phi t  /do t=-h+^2 do^2 psi x phi t /do x^2 /2m + V(x,t)psi(x) phi t
+  dividing throughout by psi x phi t
+ ih+do  phi t  /do t /phi t=-h+^2 do^2 psi x phi t /do x^2 /psi x /2m + V(x,t)
+
+ ih+ do phi t/do t /phi t =k
+do phi t/do t =-i /h+ k
+phi t = e^ -i/h+  k
+
+psi(x,t) = psi(x) e^( -i h+  k)
+do psi /do t= psi(x,t)-i h+k
+k =E
+
+ ih+do  phi t  /do t /phi t=-h+^2 do^2 psi x phi t /do x^2 /psi x /2m + V(x,t)
+ do^2 psi / do x^2 = 2m/h+2
+
+
+
+ particle in a one dimentional box
+
+
+infinite potential in boundaries
+ at boundary conditions x=0 and x =l 
+
+ do^2 psi /do x^2 + 2m/ h+^2  (E-V)psi=0
+ potential is zero 
+ do^2 psi /do x^2 + 2mE psi/ h+^2  
+ k^2 = 2mE /h+^2
+ this is a second degree diffrential equation with solution
+ psi Asin kx + bcos kx
+
+ at boundary condition x =0
+ psi =Asin kx + bcos kx
+ 0= A sin 0 + b
+ b =0
+ at boundary conditon x =l
+ psi =Asin kx  
+ 0= A sin kl
+ k=n pi/l
+ k^2 = n^pi^2/l^2
+ n^2  /l^2 = 8mE /h^2
+ n^2 h^2  /l^2 /8m = E 
+
+ psi^2 dx=A^2sin^2 kx  
+ A^2   integral  sin^2 npix/l   dx
+ A^2 /2  integral  1-cos 2npix/l   dx
+ A^2/2 L=1
+ A^2=2/L
+
+ 
+
+	
+
+
+
