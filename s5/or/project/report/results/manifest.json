@@ -1,0 +1,76 @@
+{
+  "generated_utc": "2026-10-26T06:14:23.725435+00:00",
+  "source_revision": "c932c37da84af0a7ab9ed33d65008fccbad96e1a",
+  "source_has_uncommitted_study_changes": true,
+  "cases": [
+    {
+      "id": "baseline-quick",
+      "request": "requests/baseline-quick.json",
+      "request_sha256": "3a1d8e62d4a1b941aaeaaa32bee6556ea70b64b26cebf310cbf0134c5abe5616",
+      "raw": "raw/baseline-quick.json",
+      "raw_sha256": "ebe5b115fbbbd48a6a5ccb80d58dd7eec7012a1f1e0023743d40ed732a446280",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 2.45
+    },
+    {
+      "id": "baseline-reference",
+      "request": "requests/baseline-reference.json",
+      "request_sha256": "91adbfbf04d7aad3e8157ecd702843f782e17c4d3eb96e1be2c70c9f5f681167",
+      "raw": "raw/baseline-reference.json",
+      "raw_sha256": "554b90b7915ddf31287bc008c855dd111727ec7f6ce1b8831a6e5a107f9c9596",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 10.27
+    },
+    {
+      "id": "baseline-precise",
+      "request": "requests/baseline-precise.json",
+      "request_sha256": "25ac0a28944abe60a0a6cdc7cde965e5e5185dbee718abe89d422e852b49d769",
+      "raw": "raw/baseline-precise.json",
+      "raw_sha256": "07d9b69905f72487eb3fac81347035876d4b47b0d370ea98440b1113bd1beab6",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 11.39
+    },
+    {
+      "id": "quiet-reference",
+      "request": "requests/quiet-reference.json",
+      "request_sha256": "763f4f6e3bbc37bc79069a90794becdf25f6f87258479b8294fa524f6a8ead39",
+      "raw": "raw/quiet-reference.json",
+      "raw_sha256": "0cc294000ad65c8bcc9c1248f1a5dff4bc92444c30a17b769ab97f7bb55f01e0",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 4.92
+    },
+    {
+      "id": "heavy-reference",
+      "request": "requests/heavy-reference.json",
+      "request_sha256": "4f995ca35e1d9a36b69e85d0950bbd139c5bc1e8bb37051d5d01820bf2767c2a",
+      "raw": "raw/heavy-reference.json",
+      "raw_sha256": "4911ee5a7f8cce544cfbc8f417480dc017485d9e13e2e429ac5b5ab85bf1db1e",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 14.67
+    },
+    {
+      "id": "south-heavy-reference",
+      "request": "requests/south-heavy-reference.json",
+      "request_sha256": "5a813e347fadf75e694cacd8959d7b76f9537add621955b27a6381559311656e",
+      "raw": "raw/south-heavy-reference.json",
+      "raw_sha256": "671e9cd864e0b74eff6306aba7096054f5276406a47282015b90fb3682b19e1d",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 9.54
+    },
+    {
+      "id": "fine-grid-verification",
+      "request": "requests/fine-grid-verification.json",
+      "request_sha256": "18a009a270621c08c743b6a50f1931e44ce7fbdda52014b30ac210ce5ffe9f22",
+      "raw": "raw/fine-grid-verification.json",
+      "raw_sha256": "3ccd383275e4360556e682fa0576c5f4858e211835d1ff54b62d74ea91e982c3",
+      "engine_version": "2-lcg64-batched",
+      "runtime_seconds": 209.02
+    }
+  ],
+  "paired_grid_comparison": {
+    "raw": "raw/paired-grid-comparison.json",
+    "raw_sha256": "04fa479253aeb93198ed8749cbdeea3f24f9b045792061226a03cd7f0445668f",
+    "runtime_seconds": 1.25,
+    "comparison": "baseline-precise versus fine-grid-verification on matched fresh arrivals"
+  }
+}

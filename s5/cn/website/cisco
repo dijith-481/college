@@ -1,0 +1,354 @@
+
+All Cisco experiments (Expt 11, 12, 13, and 14) are run inside Cisco Packet
+Tracer (a free network simulator used in college labs).
+
+Here is the complete, beginner-friendly guide explaining where to run them, how
+to set them up, and step-by-step instructions for each experiment.
+
+Part 1: Where and How to Run
+
+1.  Software to use: Cisco Packet Tracer
+      - If you are in your college lab, it is already installed on your PC
+        (search for "Packet Tracer" in the start menu/app drawer).
+      - If on your own laptop, download it for free from Cisco Skills For All /
+        NetAcad.
+2.  How to access a router's console (CLI):
+      - Whenever you place a router on the workspace, click on the router icon.
+      - In the popup window that appears, click the CLI tab at the top.
+      - Press Enter.
+      - If it asks: Continue with configuration dialog? [yes/no]: \rightarrow
+        type no and press Enter.
+      - You will see the prompt: Router> (This is where you type commands).
+
+Part 2: Step-by-Step for Experiment 11 (Familiarizing Commands)
+
+You only need one router for this experiment.
+
+Step 1: Place a Router
+
+1.  Look at the bottom-left corner of Packet Tracer.
+2.  Click on the round Routers icon.
+3.  Select Router-PT (or 2811) and drag it onto the white workspace.
+
+Step 2: Open the CLI and Run the Commands
+
+Click the router \rightarrow click the CLI tab \rightarrow press Enter. Now type
+these commands line-by-line:
+
+Router> enable
+
+(a) Prompt changes to Router#. You are now in Privileged Mode.
+
+Router# configure terminal
+
+(b) Prompt changes to Router(config)#. You are now in Global Configuration Mode.
+
+Router(config)# exit
+Router# show version
+
+(c) Displays router hardware, IOS version, and memory. Press Spacebar until it
+finishes.
+
+Router# show ip protocols
+
+(d) Shows if any routing protocol is active (currently none).
+
+Router# show ip route
+
+(e) Shows the current routing table.
+
+Router# copy running-config startup-config
+
+(f) Press Enter to confirm. This saves your changes.
+
+Router# show history
+
+(g) Shows your previously executed commands.
+
+Router# show clock
+
+(h) Displays the system time and date.
+
+Router# show hosts
+
+(i) Shows the host table / DNS cache.
+
+Router# show ip interface brief
+
+(j) Shows a clean summary of all interfaces and their IP status.
+
+Router# show controllers serial 0/0
+
+(k) Shows whether the port is configured as DCE or DTE.
+
+Router# configure terminal
+Router(config)# interface FastEthernet0/0
+Router(config-if)# ip address 172.16.10.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+
+Router(config)# interface Serial0/0
+Router(config-if)# ip address 172.16.20.1 255.255.255.0
+Router(config-if)# clock rate 64000
+Router(config-if)# no shutdown
+Router(config-if)# end
+
+(l) Configures the Ethernet and Serial interfaces and brings them UP.
+
+Part 3: Building the Topology for Experiments 12, 13, and 14
+
+All three experiments (Static, RIPv2, OSPF) share the exact same physical
+network shown in Figure 1:
+
+[2621A] ---- (172.16.10.0/24) ---- [2501A] ~~~~ (172.16.20.0/24) ~~~~ [2501B] ~~~~ (172.16.40.0/24) ~~~~ [2501C]
+                                                                          |                              |
+                                                                    172.16.30.0/24                 172.16.50.0/24
+
+(Note: ---- is Ethernet, ~~~~ is Serial)
+
+Step 1: Place 4 Routers
+
+  - In the bottom-left panel, select Router-PT (using Router-PT is best because
+    it comes with FastEthernet and Serial ports built-in).
+  - Drag 4 routers into a horizontal line:
+      - Name Router 0: 2621A
+      - Name Router 1: 2501A
+      - Name Router 2: 2501B
+      - Name Router 3: 2501C
+
+Step 2: Connect the Cables
+
+At the bottom-left, click the Lightning Bolt (Connections) icon:
+
+1.  Between 2621A and 2501A:
+      - Pick the Copper Cross-Over cable (dotted black line).
+      - Click 2621A \rightarrow select FastEthernet0/0.
+      - Click 2501A \rightarrow select FastEthernet0/0 (representing E0).
+2.  Between 2501A and 2501B:
+      - Pick the Serial DCE cable (red cable with a little clock icon).
+      - Click 2501A \rightarrow select Serial2/0 (representing S0).
+      - Click 2501B \rightarrow select Serial2/0 (representing S0).
+3.  Between 2501B and 2501C:
+      - Pick the Serial DCE cable again.
+      - Click 2501B \rightarrow select Serial3/0 (representing S1).
+      - Click 2501C \rightarrow select Serial2/0 (representing S0).
+4.  For the LANs on 2501B (172.16.30.0) and 2501C (172.16.50.0):
+      - In Packet Tracer, you can either configure a Loopback interface or
+        configure their FastEthernet0/0 ports.
+
+Step 3: Base IP Configuration on All 4 Routers
+
+Open the CLI of each router and paste the following commands to assign the
+addresses from the table:
+
+On Router 2621A:
+
+enable
+configure terminal
+hostname 2621A
+interface FastEthernet0/0
+ ip address 172.16.10.1 255.255.255.0
+ no shutdown
+exit
+
+On Router 2501A:
+
+enable
+configure terminal
+hostname 2501A
+interface FastEthernet0/0
+ ip address 172.16.10.2 255.255.255.0
+ no shutdown
+exit
+interface Serial2/0
+ ip address 172.16.20.1 255.255.255.0
+ clock rate 64000
+ no shutdown
+exit
+
+On Router 2501B:
+
+enable
+configure terminal
+hostname 2501B
+interface FastEthernet0/0
+ ip address 172.16.30.1 255.255.255.0
+ no shutdown
+exit
+interface Serial2/0
+ ip address 172.16.20.2 255.255.255.0
+ no shutdown
+exit
+interface Serial3/0
+ ip address 172.16.40.1 255.255.255.0
+ clock rate 64000
+ no shutdown
+exit
+
+On Router 2501C:
+
+enable
+configure terminal
+hostname 2501C
+interface Serial2/0
+ ip address 172.16.40.2 255.255.255.0
+ no shutdown
+exit
+interface FastEthernet0/0
+ ip address 172.16.50.1 255.255.255.0
+ no shutdown
+exit
+
+(All link lights will now turn green).
+
+Part 4: How to do Experiment 12 (Static Routing)
+
+In static routing, each router must be told how to reach networks it is not
+directly connected to: ip route <target-network> <subnet-mask> <next-hop-ip>
+
+1. Enter these commands on each router:
+
+  - On 2621A:
+
+enable
+configure terminal
+ip route 172.16.20.0 255.255.255.0 172.16.10.2
+ip route 172.16.30.0 255.255.255.0 172.16.10.2
+ip route 172.16.40.0 255.255.255.0 172.16.10.2
+ip route 172.16.50.0 255.255.255.0 172.16.10.2
+end
+
+  - On 2501A:
+
+enable
+configure terminal
+ip route 172.16.30.0 255.255.255.0 172.16.20.2
+ip route 172.16.40.0 255.255.255.0 172.16.20.2
+ip route 172.16.50.0 255.255.255.0 172.16.20.2
+end
+
+  - On 2501B:
+
+enable
+configure terminal
+ip route 172.16.10.0 255.255.255.0 172.16.20.1
+ip route 172.16.50.0 255.255.255.0 172.16.40.2
+end
+
+  - On 2501C:
+
+enable
+configure terminal
+ip route 172.16.10.0 255.255.255.0 172.16.40.1
+ip route 172.16.20.0 255.255.255.0 172.16.40.1
+ip route 172.16.30.0 255.255.255.0 172.16.40.1
+end
+
+2. Verify:
+
+  - On 2621A, type: show ip route (routes marked with S will appear).
+  - Type: ping 172.16.50.1
+  - You should see: Success rate is 100 percent (5/5), !!!!!
+
+Part 5: How to do Experiment 13 (RIPv2 Routing)
+
+Tip: If continuing from Experiment 12, restart the routers or start a new file
+with the Base IPs from Part 3 so old static routes don't interfere.
+
+Open CLI on each router and run:
+
+  - On 2621A:
+
+enable
+configure terminal
+router rip
+ version 2
+ no auto-summary
+ network 172.16.0.0
+end
+
+  - On 2501A:
+
+enable
+configure terminal
+router rip
+ version 2
+ no auto-summary
+ network 172.16.0.0
+end
+
+  - On 2501B:
+
+enable
+configure terminal
+router rip
+ version 2
+ no auto-summary
+ network 172.16.0.0
+end
+
+  - On 2501C:
+
+enable
+configure terminal
+router rip
+ version 2
+ no auto-summary
+ network 172.16.0.0
+end
+
+Verify:
+
+1.  Click the Fast Forward Time button (bottom bar, looks like >>) 3–4 times to
+    allow RIP updates to propagate.
+2.  On 2621A, run: show ip route (routes marked with R will appear).
+3.  Run: ping 172.16.50.1 (should reply !!!!!).
+
+Part 6: How to do Experiment 14 (OSPF Routing)
+
+Tip: Clear RIP routes (no router rip) or use a clean topology with Base IPs.
+
+Run OSPF on all directly connected subnets in Area 0:
+
+  - On 2621A:
+
+enable
+configure terminal
+router ospf 1
+ network 172.16.10.0 0.0.0.255 area 0
+end
+
+  - On 2501A:
+
+enable
+configure terminal
+router ospf 1
+ network 172.16.10.0 0.0.0.255 area 0
+ network 172.16.20.0 0.0.0.255 area 0
+end
+
+  - On 2501B:
+
+enable
+configure terminal
+router ospf 1
+ network 172.16.20.0 0.0.0.255 area 0
+ network 172.16.30.0 0.0.0.255 area 0
+ network 172.16.40.0 0.0.0.255 area 0
+end
+
+  - On 2501C:
+
+enable
+configure terminal
+router ospf 1
+ network 172.16.40.0 0.0.0.255 area 0
+ network 172.16.50.0 0.0.0.255 area 0
+end
+
+Verify:
+
+1.  Wait a few seconds for neighbor adjacencies to form (messages like
+    OSPF-5-ADJCHG: Process 1, Nbr ... to FULL will appear).
+2.  On 2621A, run: show ip route (routes marked with O will appear).
+3.  Run: ping 172.16.50.1 (should reply with !!!!!).

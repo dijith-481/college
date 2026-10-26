@@ -1,6 +1,9 @@
 use random::Lcg;
 use serde::{Deserialize, Serialize};
-use simulation::{Config, Run, Sample, Scenario, scenario, simulate, simulate_with_profile};
+use simulation::{
+    Config, Run, Sample, Scenario, TrainingResult, scenario, simulate, simulate_with_profile,
+    training_batch,
+};
 
 const QUEUE_BINS: usize = 120;
 
@@ -259,22 +262,26 @@ pub fn feasible(request: &Request) -> Result<Vec<[f64; 4]>, String> {
     if total < 4 * min || total > 4 * max || !(total - 4 * min).is_multiple_of(step) {
         return Err("No feasible timings with this cycle, bounds, and spacing.".into());
     }
-    let mut plans = Vec::new();
-    for a in (min..=max).step_by(step as usize) {
-        for b in (min..=max).step_by(step as usize) {
-            for c in (min..=max).step_by(step as usize) {
-                if a + b + c > total {
-                    continue;
-                }
-                let d = total - a - b - c;
-                if d >= min && d <= max && (d - min).is_multiple_of(step) {
-                    plans.push([a as f64, b as f64, c as f64, d as f64]);
-                }
-                if plans.len() > 100000 {
-                    return Err("More than 100,000 feasible plans: increase the grid step.".into());
-                }
-            }
-        }
+    let grid_step = step as usize;
+    let plans = (min..=max)
+        .step_by(grid_step)
+        .flat_map(|a| {
+            (min..=max).step_by(grid_step).flat_map(move |b| {
+                (min..=max).step_by(grid_step).filter_map(move |c| {
+                    let partial = a + b + c;
+                    if partial > total {
+                        return None;
+                    }
+                    let d = total - partial;
+                    (d >= min && d <= max && (d - min).is_multiple_of(step))
+                        .then_some([a as f64, b as f64, c as f64, d as f64])
+                })
+            })
+        })
+        .take(100_001)
+        .collect::<Vec<_>>();
+    if plans.len() > 100_000 {
+        return Err("More than 100,000 feasible plans: increase the grid step.".into());
     }
     if plans.is_empty() {
         return Err(
@@ -316,6 +323,7 @@ pub struct TrainingShard {
     distribution: Distribution,
     rng: Lcg,
     current: Option<Scenario>,
+    current_training: Option<Vec<TrainingResult>>,
     current_state: u64,
     replication: usize,
     index: usize,
@@ -341,6 +349,7 @@ impl TrainingShard {
             training: vec![Moments::default(); end - start],
             distribution: Distribution::default(),
             current: None,
+            current_training: None,
             current_state: 0,
             replication: 0,
             index: 0,
@@ -359,13 +368,15 @@ impl TrainingShard {
             if self.replication >= self.request.training_replications {
                 break;
             }
-            let mut config = self.request.config.clone();
+            let config = self.request.config.clone();
             if self.current.is_none() {
                 self.current_state = self.rng.state();
-                self.current = Some(scenario(&config, &mut self.rng));
+                let current = scenario(&config, &mut self.rng);
+                self.current_training = Some(training_batch(&config, &current, &self.plans));
+                self.current = Some(current);
             }
-            config.green = self.plans[self.index];
-            let run = simulate(&config, self.current.as_ref().unwrap(), false);
+            let plan = self.plans[self.index];
+            let run = self.current_training.as_ref().unwrap()[self.index];
             self.training[self.index].push(run.delay);
             self.distribution.push(
                 if run.arrivals > 0 {
@@ -375,23 +386,29 @@ impl TrainingShard {
                 },
                 run.remaining as f64,
             );
-            let choice = ReplayChoice {
-                label: "Search outcome".into(),
-                state: format!("{:016x}", self.current_state),
-                green: config.green,
-                delay: run.delay,
-                remaining: run.remaining,
-            };
-            if self.lowest.as_ref().is_none_or(|c| choice.delay < c.delay) {
-                self.lowest = Some(choice.clone());
+            if self.lowest.as_ref().is_none_or(|c| run.delay < c.delay) {
+                self.lowest = Some(ReplayChoice {
+                    label: "Search outcome".into(),
+                    state: format!("{:016x}", self.current_state),
+                    green: plan,
+                    delay: run.delay,
+                    remaining: run.remaining,
+                });
             }
-            if self.highest.as_ref().is_none_or(|c| choice.delay > c.delay) {
-                self.highest = Some(choice);
+            if self.highest.as_ref().is_none_or(|c| run.delay > c.delay) {
+                self.highest = Some(ReplayChoice {
+                    label: "Search outcome".into(),
+                    state: format!("{:016x}", self.current_state),
+                    green: plan,
+                    delay: run.delay,
+                    remaining: run.remaining,
+                });
             }
             self.index += 1;
             if self.index == self.plans.len() {
                 self.index = 0;
                 self.current = None;
+                self.current_training = None;
                 self.replication += 1;
             }
         }
@@ -423,6 +440,7 @@ pub struct Session {
     completed: u64,
     total: u64,
     current: Option<Scenario>,
+    current_training: Option<Vec<TrainingResult>>,
     current_state: u64,
     first_evaluation_state: Option<u64>,
     lowest: Option<ReplayChoice>,
@@ -514,6 +532,7 @@ impl Session {
             completed: 0,
             total,
             current: None,
+            current_training: None,
             current_state: 0,
             first_evaluation_state: None,
             lowest: None,
@@ -552,31 +571,39 @@ impl Session {
                 Stage::Training => {
                     if self.current.is_none() {
                         self.current_state = self.rng.state();
-                        self.current = Some(scenario(&config, &mut self.rng));
+                        let current = scenario(&config, &mut self.rng);
+                        self.current_training =
+                            Some(training_batch(&config, &current, &self.plans));
+                        self.current = Some(current);
                     }
-                    config.green = self.plans[self.index];
-                    let run = simulate(&config, self.current.as_ref().unwrap(), false);
+                    let plan = self.plans[self.index];
+                    let run = self.current_training.as_ref().unwrap()[self.index];
                     self.training[self.index].push(run.delay);
-                    let choice = ReplayChoice {
-                        label: "Search outcome".into(),
-                        state: format!("{:016x}", self.current_state),
-                        green: config.green,
-                        delay: run.delay,
-                        remaining: run.remaining,
-                    };
                     if self
                         .search_lowest
                         .as_ref()
-                        .is_none_or(|c| choice.delay < c.delay)
+                        .is_none_or(|c| run.delay < c.delay)
                     {
-                        self.search_lowest = Some(choice.clone());
+                        self.search_lowest = Some(ReplayChoice {
+                            label: "Search outcome".into(),
+                            state: format!("{:016x}", self.current_state),
+                            green: plan,
+                            delay: run.delay,
+                            remaining: run.remaining,
+                        });
                     }
                     if self
                         .search_highest
                         .as_ref()
-                        .is_none_or(|c| choice.delay > c.delay)
+                        .is_none_or(|c| run.delay > c.delay)
                     {
-                        self.search_highest = Some(choice);
+                        self.search_highest = Some(ReplayChoice {
+                            label: "Search outcome".into(),
+                            state: format!("{:016x}", self.current_state),
+                            green: plan,
+                            delay: run.delay,
+                            remaining: run.remaining,
+                        });
                     }
                     self.search_distribution.push(
                         if run.arrivals > 0 {
@@ -590,6 +617,7 @@ impl Session {
                     if self.index == self.plans.len() {
                         self.index = 0;
                         self.current = None;
+                        self.current_training = None;
                         self.replication += 1;
                     }
                     if self.replication == self.request.training_replications {

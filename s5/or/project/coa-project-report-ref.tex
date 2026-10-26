@@ -1,0 +1,412 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Professional Project Report Template - MODIFIED
+%   Optimizing RISC-V Cache Hierarchy for Functional Data Structures
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt, a4paper]{report}
+
+% --- CORE PACKAGES ---
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{amsmath, amssymb}
+\usepackage{parskip}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage{url}
+\hyphenation{stand-alone frame-work-less non-func-tion-al high-fi-del-i-ty pre-fetch-ing micro-ar-chi-tec-ture}
+
+% --- HYPERLINKS & REFERENCING ---
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black,
+    pdftitle={Project Report: Optimizing RISC-V Cache Hierarchy for Functional Data Structures},
+    pdfauthor={Dijith Dinesh},
+    pdfpagemode=FullScreen,
+}
+
+% --- HEADER, FOOTER & STYLING ---
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage[toc,page]{appendix}
+\usepackage{tocbibind}
+\usepackage{listings}
+\usepackage{xcolor}
+\setlength{\headheight}{14pt} % Adjusted to prevent fancyhdr warning
+
+% --- Nord Light Code Listing Style ---
+\definecolor{nordlightbg}{HTML}{ECEFF4}
+\definecolor{nordlightfg}{HTML}{2E3440}
+\definecolor{nordlightcomment}{HTML}{4C566A}
+\definecolor{nordlightkeyword}{HTML}{5E81AC}
+\definecolor{nordlightstring}{HTML}{A3BE8C}
+\definecolor{nordlightnumber}{HTML}{B48EAD}
+
+\lstdefinestyle{nordlightstyle}{
+    backgroundcolor=\color{nordlightbg},   
+    commentstyle=\color{nordlightcomment}\itshape,
+    keywordstyle=\color{nordlightkeyword}\bfseries,
+    numberstyle=\tiny\color{nordlightnumber},
+    stringstyle=\color{nordlightstring},
+    basicstyle=\ttfamily\footnotesize\color{nordlightfg},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=nordlightstyle}
+
+\chapterfont{\centering}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Optimizing RISC-V Cache Hierarchy}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Dept. Computer Engineering, MEC 2026}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- DOCUMENT START ---
+\begin{document}
+\renewcommand{\bibname}{References}
+
+% --- FRONT MATTER ---
+\begin{titlepage}
+    \centering
+    \pagestyle{empty}
+    \vspace*{0.5cm}
+    {\Huge \bfseries Optimizing RISC-V Cache Hierarchy for Functional Data Structures\par}
+    \vspace{0.4cm}
+    {\large \textbf{PBCST404: Computer Organization and Architecture Project Report}\par}
+    \vfill
+    {\large \itshape Submitted by:\par}
+    \vspace{0.5cm}
+    \begin{center}
+    \begin{tabular}{l r}
+        \bfseries Aaron Paul & \bfseries MDL24CSBS002 \\
+        \bfseries Athuljith S & \bfseries MDL24CSBS021 \\
+        \bfseries Dijith Dinesh & \bfseries MDL24CSBS023 \\
+        \bfseries Peter Joe Menachery & \bfseries MDL24CSBS048 \\
+        \bfseries Pranav Manoj & \bfseries MDL24CSBS049 \\
+        \bfseries Joe Cyriac & \bfseries MDL24CSBS030 \\
+    \end{tabular}
+    \end{center}
+    \vfill
+    \includegraphics[width=0.15\textwidth]{college.png}\par
+    \vspace{0.5cm}
+    {\Large \bfseries Department of Computer Engineering \par}
+    {\large \bfseries Govt. Model Engineering College, Thrikkakara \par}
+    {\large Ernakulam, Kochi 682021 \par}
+    {\large \href{https://www.mec.ac.in}{https://www.mec.ac.in} \par}
+    \vspace{1cm}
+    {\large March 2026\par}
+\end{titlepage}
+
+\newpage
+
+% --- CERTIFICATE ---
+\pagestyle{empty}
+\begin{center}
+    {\Large\bfseries Model Engineering College, Thrikkakara \par}
+    {\large\bfseries Department of Computer Engineering \par}
+    \vspace{0.4cm}
+    \includegraphics[width=0.15\textwidth]{college.png} \par
+    \vspace{0.4cm}
+    {\Huge\bfseries CERTIFICATE \par}
+    \vspace{0.5cm}
+\end{center}
+
+\noindent
+This is to certify that the project report entitled:
+    \large{\bfseries{ ``Optimizing RISC-V Cache Hierarchy for Functional Data Structures''}}
+\noindent
+is a bonafide record of the work carried out by
+\begin{center}
+    \begin{tabular}{l r}
+        \bfseries Aaron Paul & MDL24CSBS002 \\
+        \bfseries Athuljith S & MDL24CSBS021 \\
+        \bfseries Dijith Dinesh & MDL24CSBS023 \\
+        \bfseries Peter Joe Menachery & MDL24CSBS048 \\
+        \bfseries Pranav Manoj & MDL24CSBS049 \\
+        \bfseries Joe Cyriac & MDL24CSBS030 \\
+    \end{tabular}\\
+    \textbf{Fourth Semester B.Tech Computer Science \& Business Systems}
+\end{center}
+
+\noindent
+students, in partial fulfillment of the requirements for the course \textbf{PBCST404: Computer Organization and Architecture} for the award of the degree of Bachelor of Technology from \textbf{APJ Abdul Kalam Technological University}.
+
+\vfill
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+    \hrulefill & \hfill \hrulefill \\
+    \textbf{Anu Jhonson} & \hfill \textbf{Dr. Binu V P} \\
+    \textit{Project Guide} & \hfill \textit{Head of the Department} \\
+    Assistant Professor & \hfill Associate Professor \\
+\end{tabular}
+
+\vspace{0.5cm}
+\begin{center}
+    \hrulefill \\
+    \textbf{Thasni Ibrahim} \\
+    \textit{Project Coordinator} \\
+    Assistant Professor \\
+\end{center}
+\vspace{0.5cm}
+\begin{flushleft} \today \end{flushleft}
+
+\newpage
+
+% --- ACKNOWLEDGEMENTS ---
+\chapter*{Acknowledgements}
+\thispagestyle{fancy}
+We extend our gratitude to our project guide, \textit{Anu Jhonson}, whose technical feedback regarding computer architecture, pipelining, and memory hierarchies was pivotal in transforming theoretical concepts into robust simulation analysis. We also thank our project coordinator, \textit{Thasni Ibrahim}, for managing project timelines, and our Head of Department, \textit{Dr. Binu V P}, alongside the faculty of the Department of Computer Engineering, for fostering an environment that encourages low-level system innovation.
+
+\vspace{0.5cm}
+\begin{flushright}
+    {\small 
+    \begin{tabular}{l l}
+        \textbf{Aaron Paul} & MDL24CSBS002 \\
+        \textbf{Athuljith S} & MDL24CSBS021 \\
+        \textbf{Dijith Dinesh} & MDL24CSBS023 \\
+        \textbf{Peter Joe Menachery} & MDL24CSBS048 \\
+        \textbf{Pranav Manoj} & MDL24CSBS049 \\
+        \textbf{Joe Cyriac} & MDL24CSBS030 \\
+    \end{tabular}
+    \vspace{0.2cm} \\
+    \textbf{Model Engineering College}
+    } 
+\end{flushright}
+
+\newpage
+
+% --- ABSTRACT ---
+\chapter*{Abstract}
+Functional Programming (FP) paradigms rely heavily on dynamically allocated, non-contiguous data structures (linked lists, trees). At the microarchitectural level, this violates spatial locality, causing a ``pointer-chasing'' bottleneck that introduces severe cache misses and data hazards, degrading cycles per instruction (CPI). While modern compiler optimizations reduce raw instruction counts, they cannot alter the scattered physical layout of memory on the heap.
+
+This project investigates these architectural penalties using the \textbf{gem5} simulator configured with a RISC-V pipelined core (\path{MinorCPU}). We benchmark imperative arrays against naive functional linked lists and co-designed arena-allocated linked lists. By systematically altering CPU cache parameters (Associativity, Block Size, Hardware Prefetchers), we analyze their impact on Average Memory Access Time (AMAT) and L1 Data Miss Rates. Our automated analysis of over 200 simulation grids reveals that synergizing software-level memory arenas with hardware-level stride prefetchers substantially bridges the architectural gap between functional abstractions and imperative performance.
+
+\newpage
+\pagenumbering{roman}
+\pagestyle{fancy}
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+% --- MAIN MATTER ---
+\cleardoublepage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Challenge of Functional Data Structures}
+The von Neumann architecture optimizes for efficient access to contiguous memory via Temporal and Spatial Locality. However, functional data structures frequently rely on dynamic heap allocation. Adding elements to an immutable linked list scatters data physically, causing a direct conflict with cache hierarchy assumptions. This "pointer-chasing" leads to high L1/L2 cache miss rates, increased Average Memory Access Time (AMAT), and pipeline stalls that reduce CPU throughput (CPI).
+
+Sophisticated compilers (e.g., GCC \path{-O3}) utilize optimizations like Tail-Call Optimization (TCO), loop unrolling, and instruction scheduling to reduce dynamic instruction counts. However, they cannot optimize the physical memory layout of dynamically allocated pointer-based structures, leaving memory-bound execution largely unmitigated at the compiler level.
+
+\section{Project Objectives}
+Using the \path{gem5} architectural simulator, this project quantifies the performance implications of functional data structures on a RISC-V processor's memory hierarchy:
+\begin{enumerate}
+    \item \textbf{Quantify the Performance Gap:} Measure CPI and L1 Data Miss Rates for imperative arrays, naive linked lists, and arena-allocated linked lists.
+    \item \textbf{Analyze Cache Parameters:} Vary L1 Data Cache Associativity (2, 4, 8 ways) and Block Sizes (32B, 64B) to evaluate conflict and capacity miss mitigation.
+    \item \textbf{Evaluate Hardware Prefetching:} Assess Stride and Tagged prefetchers in hiding memory latency for pointer-chasing workloads.
+    \item \textbf{Demonstrate Co-Design:} Show how software-level arena allocation synergizes with hardware prefetchers to improve performance.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{System Study}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Architectural Context}
+\textbf{RISC-V Architecture:} A Load/Store architecture where memory access is strictly separated from computation. This makes memory hierarchy performance critical to overall execution speed.
+\textbf{Pipelining \& Hazards:} Pointer-chasing primarily manifests as \textbf{data hazards}. A load instruction dereferencing a cache-missed pointer stalls the pipeline, neutralizing the throughput benefits of pipelined execution.
+
+\section{Cache Organization and Prefetching}
+\begin{itemize}
+    \item \textbf{Mapping:} Direct mapped caches are simple but prone to conflict misses. Set-associative caches offer flexibility, with higher associativity reducing conflict misses.
+    \item \textbf{Block Size:} Larger blocks exploit spatial locality but cause \textbf{cache pollution} if data is scattered.
+    \item \textbf{Prefetching:} Hardware mechanisms anticipate access. Stride prefetchers detect regular offsets (effective for arrays/arenas), while Tagged prefetchers fetch sequentially.
+\end{itemize}
+
+\section{Workload Classification}
+\begin{itemize}
+    \item \textbf{\path{array_map.c}} (Imperative Array): Contiguous memory. Excellent spatial locality. Expected: Low cache miss rate, low CPI.
+    \item \textbf{\path{naive_fp.c}} (Naive Functional Linked List): Scattered heap allocation. Poor locality. Expected: High miss rate, cache pollution, high CPI.
+    \item \textbf{\path{arena_list.c}} (Arena-Allocated Linked List): Logically linked, physically contiguous via an allocated arena. Expected: Improved hit rates, highly responsive to stride prefetchers.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Software Requirements Specification (SRS)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+The project requires a simulation and analysis framework to quantify RISC-V cache hierarchy performance across specified C microbenchmarks. The system automates workload compilation, gem5 execution, data parsing, and visualization.
+
+\section{Hardware and Software Requirements}
+\begin{itemize}
+    \item \textbf{Hardware:} Multi-core x86-64 CPU, 16GB+ RAM, SSD storage.
+    \item \textbf{Software:} Arch Linux, \path{g++}, \path{riscv64-linux-gnu-gcc}, Python 3.12+ (\path{pandas}, \path{matplotlib}, \path{seaborn}).
+\end{itemize}
+
+\section{Functional Requirements (FRs)}
+\begin{itemize}
+    \item \textbf{FR-1 (Compilation):} Compile C benchmarks into RISC-V ELF executables with variable optimization levels (-O0, -O3) and sizes.
+    \item \textbf{FR-2 (Simulation Execution):} Automate gem5 runs varying L1D associativity, block size, and prefetcher type.
+    \item \textbf{FR-3 (ROI Profiling):} Collect statistics exclusively for the Region of Interest defined by \path{m5ops}.
+    \item \textbf{FR-4 (Data Parsing \& AMAT):} Parse \path{stats.txt} to extract core metrics and compute AMAT using predefined latencies.
+    \item \textbf{FR-5 (Visualization):} Generate comparative plots.
+\end{itemize}
+
+\section{Non-Functional Requirements (NFRs)}
+\begin{itemize}
+    \item \textbf{Reproducibility:} Identical parameters must yield identical analysis outputs.
+    \item \textbf{Scalability:} Framework must support parallel simulation execution.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{System Design and Architecture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{System Architecture}
+The framework consists of C Benchmarks, a RISC-V Cross-Compiler, a Simulation Orchestrator (\path{runner.py}), a Stats Parser (\path{parser.py}), and a Plotting Engine (\path{plotter.py}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagrams/architecture.png}
+    \caption{System Architecture Flow}
+    \label{fig:architecture}
+\end{figure}
+
+\section{C Benchmarks Design}
+All benchmarks share identical core computational loops (modulo arithmetic) to isolate memory access performance.
+
+\textbf{\path{array_map.c}}: Direct array indexing. Ideal spatial locality.
+\textbf{\path{naive_fp.c}}: Randomly shuffled heap allocations with intentional structural padding to amplify cache line pollution.
+\textbf{\path{arena_list.c}}: Nodes allocated in a contiguous block, linking \path{arena[i].next} to \path{&arena[i+1]}.
+
+\section{gem5 Simulation Configuration}
+\begin{itemize}
+    \item \textbf{CPU:} \path{MinorCPU()} (In-order, highlights memory stalls).
+    \item \textbf{L1 Caches:} L1I (16kB, 2-way), L1D (32kB, configurable associativity 2/4/8, configurable prefetcher, 32B/64B block size).
+    \item \textbf{L2 Cache \& Memory:} L2 (256kB, 8-way), \path{DDR3_1600_8x8} Memory Controller.
+\end{itemize}
+
+\section{Automation Flow}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagrams/activity.png}
+    \caption{Activity Diagram: Simulation Workflow}
+    \label{fig:activity_workflow}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Implementation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{C Benchmark Implementation}
+Benchmarks utilize \path{m5_dump_reset_stats(0, 0)} before the main loop and \path{m5_dump_stats(0, 0)} after, isolating metrics to the execution ROI.
+
+\begin{lstlisting}[language=C, caption=Shared Computation Logic (Excerpt)]
+  m5_dump_reset_stats(0, 0);
+  volatile long sum = 0;
+  while (current != NULL) { // or i < NUM_ELEMENTS
+      int val = current->value; // pointer deref or array access
+      int compute = 0;
+      for (int j = 1; j <= 5; j++) compute += (val * j) % 9973;
+      sum += compute;
+      current = current->next; // advance pointer or increment i
+  }
+  m5_dump_stats(0, 0);
+\end{lstlisting}
+
+\section{Python Automation Framework}
+\textbf{\path{runner.py}:} Utilizes \path{itertools.product} to generate the parameter grid and \path{ProcessPoolExecutor} to invoke parallel instances of \path{gem5.opt}.\\
+\textbf{\path{parser.py}:} Iterates through simulation directories, extracts metadata from folder names, and searches \path{stats.txt} for ROI-specific metrics (\path{simInsts}, \path{system.cpu.cpi}, Miss Rates), compiling them into a CSV.\\
+\textbf{\path{plotter.py}:} Processes the CSV, calculating AMAT:
+\begin{align*}
+    AMAT &= L1_{Hit} + L1_{MissRate} \times (L2_{Hit} + L2_{MissRate} \times Mem_{Penalty})
+\end{align*}
+Uses \path{matplotlib} and \path{seaborn} to generate high-resolution comparison plots.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Testing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Testing ensures the accuracy of workload math and validation of the simulation pipeline.
+
+\begin{itemize}
+    \item \textbf{Unit Testing (C Logic):} Compiled all three benchmarks for native execution (no \path{m5ops}) with \path{NUM_ELEMENTS=100}. Verified that \path{array_map}, \path{naive_fp}, and \path{arena_list} produced the exact same mathematical sum. [Status: PASS]
+    \item \textbf{Unit Testing (AMAT Logic):} Passed mock data ($L1_{Miss}=0.05, L2_{Miss}=0.5$, penalties fixed) to \path{calculate_amat}. Verified output matched manual calculations exactly. [Status: PASS]
+    \item \textbf{Integration Testing:} Executed a single grid configuration via \path{runner.py}. Verified that \path{riscv64-linux-gnu-gcc} compiled successfully and \path{gem5.opt} produced populated \path{stats.txt} and \path{config.ini} files in the designated output directory. [Status: PASS]
+    \item \textbf{System Testing:} Executed full pipeline from compilation to \path{plotter.py}. Verified output CSV data mapped accurately to generated visualizations, confirming end-to-end framework stability. [Status: PASS]
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results and Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Baseline Performance (CPI) \& Capacity Misses}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{plots_final/1_baseline_cpi.png}
+    \caption{Baseline CPI (Size: 50K, O3 Opt, No Prefetch)}
+\end{figure}
+\textbf{Discussion:} Imperative arrays maintain excellent CPI (~0.75). \path{naive_fp} suffers a severe CPI penalty (>4.18) due to the "memory wall." \path{arena_list} partially mitigates this (~2.07 CPI). Large datasets (50K) cause \path{naive_fp} L1D miss rates to hit ~33\% due to capacity constraints, whereas arrays maintain ~4\%.
+
+\section{Associativity and Conflict Misses}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{plots_final/3_associativity_curve.png}
+    \caption{L1D Miss Rate vs. Associativity (Size: 500)}
+\end{figure}
+\textbf{Discussion:} At 2-way associativity, \path{naive_fp} exhibits conflict misses due to random address collisions. Upgrading to 4-way and 8-way eliminates these conflicts. Arrays and arenas maintain near-zero conflict misses regardless.
+
+\section{Block Size and Hardware Prefetching}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{plots_final/5_prefetching_amat.png}
+    \caption{Hardware Prefetching Impact on AMAT}
+\end{figure}
+\textbf{Discussion:} Larger block sizes halve miss rates for arrays and arenas by fetching adjacent data, but cause cache pollution for \path{naive_fp}. Consequently, prefetchers fail on \path{naive_fp} (AMAT > 40 cycles). However, a Stride Prefetcher drops \path{arena_list} AMAT to ~2.5 cycles, matching arrays.
+
+\section{Compiler vs. Architecture Limitations}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{plots_final/8_ultimate_summary_S50000.png}
+    \caption{Bridging the Gap (Size: 50000)}
+\end{figure}
+\textbf{Discussion:} While \path{-O3} optimization reduces total instructions by ~70\% across all structures, it fails to fix memory stalls. The best combined approach—software physical contiguity (\path{arena_list}) paired with hardware stride prefetching—drops functional CPI to 0.78, nearly matching the imperative array maximum limit (0.72 CPI).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusion and Future Scope}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+This project quantified the architectural penalty of functional programming abstractions on RISC-V systems.
+\begin{itemize}
+    \item \textbf{Memory-Bound Limits:} Compiler optimizations cannot overcome poor physical memory locality; dynamic heap scattering inevitably stalls the CPU pipeline.
+    \item \textbf{Cache Mechanics:} Scattered data ignores spatial locality, causing severe capacity misses and cache block pollution. 
+    \item \textbf{Co-Design Necessity:} Hardware prefetchers alone cannot rescue random access patterns. True performance recovery requires software-level structure (arena allocation) to give hardware prefetchers predictable strides. 
+\end{itemize}
+
+\section{Future Scope}
+\begin{itemize}
+    \item \textbf{Out-of-Order (OoO) Execution:} Evaluating the same workloads on superscalar \path{O3CPU} models to analyze how Reorder Buffers hide memory latency.
+    \item \textbf{Advanced Prefetching:} Testing Best-Offset or Irregular Memory prefetchers designed specifically for pointer-chasing logic.
+    \item \textbf{TLB Stress Analysis:} Analyzing page walk latencies and TLB miss rates associated with heavily fragmented functional heap allocations.
+\end{itemize}
+
+\end{document}

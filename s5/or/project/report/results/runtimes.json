@@ -1,0 +1,10 @@
+{
+  "baseline-quick": 2.45,
+  "baseline-reference": 10.27,
+  "baseline-precise": 11.39,
+  "quiet-reference": 4.92,
+  "heavy-reference": 14.67,
+  "south-heavy-reference": 9.54,
+  "fine-grid-verification": 209.02,
+  "paired-grid-comparison": 1.25
+}

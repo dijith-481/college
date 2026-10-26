@@ -1,2 +1,65 @@
-# Keep the large OR project implementation repository local to this device.
+// Keep the large OR implementation repository local to this device.
 /s5/or/project/implementation
+
+// OR report build intermediates
+/s5/or/project/report/*.aux
+/s5/or/project/report/*.lof
+/s5/or/project/report/*.log
+/s5/or/project/report/*.lot
+/s5/or/project/report/*.out
+/s5/or/project/report/*.toc
+
+// Downloaded AI books and course handouts not needed on synced devices
+/s5/ai/*.pdf
+/s5/honours/human-interface.pdf
+
+// Generated NPTEL transcript exports; the downloader scripts remain synced
+/s5/honours/human-interface-honours/*.txt
+/s5/honours/human-interface-honours/*.vtt
+/s5/honours/human-interface-honours/00_all_transcripts.md
+/s5/honours/noc26_cs177_all_transcripts.md
+/s5/honours/*_transcripts.zip
+/s5/honours/assignments.zip
+
+// Generated COA simulations and compiled OS lab outputs
+/s4/coa/project/code/results/
+/s4/coa/project/code/temp/
+/s4/os/lab/**/output/
+/s4/os/lab/exam/a.out
+/s4/os/lab/p1
+/s4/os/lab/p2
+/s4/os/lab/receiver
+/s4/os/lab/sender
+
+// Downloaded S4 reference books and module PDFs
+/s4/ComputerScienceandBusinessSystems_compressed(1).pdf
+/s4/coa/Computer-Organization-and-Architecture-9th-Edition-William-Stallings2012.pdf
+/s4/coa/Digital Design & Computer Architecture RISC-V Edition-421-429.pdf
+/s4/coa/Digital Design & Computer Architecture RISC-V Edition.pdf
+/s4/dbms/Fundamentals-of-Database-systems-Navathe.pdf
+/s4/dbms/making-the-sense-of-nosql.pdf
+/s4/economics/EE Module 2 pdf 1.pdf
+/s4/economics/EE Module 2 pdf 2.pdf
+/s4/economics/EE Module 2 ppt-1.pdf
+/s4/economics/Module 4 pdf.pdf
+/s4/economics/PDFGallery_20260308_194905.pdf
+/s4/honours/Koblitz.2ndEd.pdf
+/s4/honours/Number theory for computing - Yan S Y..pdf
+/s4/honours/PRML.pdf
+/s4/honours/book4.pdf
+/s4/maths/graph-theory.pdf
+/s4/ml/Introduction to Machine Learning*.pdf
+/s4/ml/MachineLearningTomMitchell.pdf
+/s4/ml/mohammed_j_zaki_wagner_meira_jr_data_mining_and_analysis_fun.pdf
+/s4/os/Abraham-Silberschatz-Operating-System-Concepts-10th-2018.pdf
+/s4/os/Andrew S. Tanenbaum, Herbert Bos - Modern Operating Systems (2014, Pearson).pdf
+/s4/os/DesignUnixOs.pdf
+/s4/os/Linux Kernel Development 3rd Edition - Love - 2010.pdf
+/s4/os/LittleBookOfSemaphores.pdf
+/s4/os/operating_systems_three_easy_pieces.pdf
+
+// Keep the independent DBMS checkout and source assets; do not sync local secrets or raster previews
+/s4/dbms/project/course-registration/.env.render
+/s4/dbms/project/course-registration/graphviz.png
+/s4/dbms/project/course-registration/symbols.png
+/s4/os/lab/pipe-ipc.c

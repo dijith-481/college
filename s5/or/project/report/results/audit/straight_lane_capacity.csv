@@ -1,0 +1,9 @@
+case,approach,straight_demand_vehicles_per_hour,straight_ideal_capacity_vehicles_per_hour,demand_capacity_ratio
+baseline-reference,North,360.0,525.0,0.6857142857142857
+baseline-reference,East,210.0,300.0,0.7
+baseline-reference,South,330.0,450.0,0.7333333333333333
+baseline-reference,West,180.0,225.0,0.8
+heavy-reference,North,540.0,525.0,1.0285714285714285
+heavy-reference,East,315.0,300.0,1.05
+heavy-reference,South,495.0,450.0,1.1
+heavy-reference,West,270.0,225.0,1.2

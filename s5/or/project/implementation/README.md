@@ -41,6 +41,12 @@ vp preview
 
 The event transition function consumes explicit state and configuration and performs no external effects. The experiment session contains explicit mutable orchestration state; batch size does not change its result. There is no randomness in the frontend traffic model.
 
+## Performance
+
+[`PERFORMANCE_ANALYSIS.md`](PERFORMANCE_ANALYSIS.md) records the Rust hot-path review, the approach-level training cache, native before/after timings, numerical comparison, and remaining optimization ideas. The 5× target is exceeded in the measured native searches; browser/WebAssembly timing is a separate measurement.
+
+The scenario presets include a separate Toronto AM-peak demonstration derived from the City of Toronto's intersection turning-movement dataset. The City-sourced [count table](https://www.toraffic.ca/data/intersection-counts) reports 3,139 vehicles/hour at Eglinton Avenue East / Victoria Park Avenue on 2026-09-16. The summary is an intersection total, so the preset evenly divides it across four approach inputs and retains the default 20/60/20 turn split as explicit assumptions; it is not a field-calibrated four-approach dataset or part of the report's reference experiments. The dataset and licence links and assumptions are shown beside the preset in the control panel.
+
 ## Larger experiments
 
 The API accepts 2 to 1,000,000 replications, up to 100,000 feasible grid plans, 24-hour horizons, and approach demand up to 20,000 vehicles/hour. A scenario with more than a million expected vehicles is rejected to bound individual-scenario memory. UI ranges are narrower for ordinary operating conditions, with the full million-replication range available.

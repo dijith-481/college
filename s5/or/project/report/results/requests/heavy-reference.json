@@ -1,0 +1,33 @@
+{
+  "config": {
+    "horizon": 600,
+    "cycle": 96,
+    "clearance": 16,
+    "headway": 2,
+    "rates": [
+      900,
+      525,
+      825,
+      450
+    ],
+    "turns": [
+      0.2,
+      0.6,
+      0.2
+    ],
+    "green": [
+      24,
+      16,
+      24,
+      16
+    ]
+  },
+  "replications": 1000,
+  "training_replications": 256,
+  "grid_step": 4,
+  "min_green": 8,
+  "max_green": 44,
+  "seed": 2026,
+  "optimize": true,
+  "sensitivity": false
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-26",
+  "mode": "native release",
+  "machine_note": "Same local study machine for each before/after pair where both values are available; absolute times vary by hardware.",
+  "cases": [
+    {
+      "id": "baseline-reference",
+      "plans": 415,
+      "before_seconds": 10.49,
+      "after_seconds": 1.72,
+      "speedup": 6.1,
+      "selected_before": [28, 16, 24, 12],
+      "selected_after": [28, 16, 24, 12],
+      "fresh_evaluation_delays_identical": true,
+      "fresh_evaluation_histograms_identical": true,
+      "max_training_candidate_mean_absolute_delta": 7.275957614183426e-12
+    },
+    {
+      "id": "fine-grid-verification",
+      "plans": 19369,
+      "before_seconds": 209.02,
+      "before_source": "Previously saved timing in runtimes.json; old-source run was not repeated during this optimization check.",
+      "after_seconds": 6.86,
+      "speedup_vs_saved_before": 30.5,
+      "selected_before": [26, 16, 24, 14],
+      "selected_after": [26, 16, 24, 14],
+      "fresh_evaluation_delays_identical": true,
+      "evaluation_histograms_identical": true,
+      "search_histograms_identical": true,
+      "candidate_winner_unchanged": true,
+      "max_training_candidate_mean_absolute_delta": 1.0913936421275139e-11
+    }
+  ],
+  "note": "Training reuses independent approach/phase outcomes. The exponential inverse transform and seeded arrivals are unchanged. These native timings do not predict browser WebAssembly latency."
+}

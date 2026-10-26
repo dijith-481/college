@@ -7,3 +7,6 @@ edition.workspace = true
 random = { path = "../random" }
 simulation = { path = "../simulation" }
 serde.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

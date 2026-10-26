@@ -1,3 +1,21 @@
 python/.venv
 **/output
 **/outputs/
+
+# LaTeX build intermediates for the OR report
+/s5/or/project/report/*.aux
+/s5/or/project/report/*.lof
+/s5/or/project/report/*.log
+/s5/or/project/report/*.lot
+/s5/or/project/report/*.out
+/s5/or/project/report/*.toc
+
+# Downloaded references and generated NPTEL transcript exports
+/s5/ai/*.pdf
+/s5/honours/human-interface.pdf
+/s5/honours/human-interface-honours/*.txt
+/s5/honours/human-interface-honours/*.vtt
+/s5/honours/human-interface-honours/00_all_transcripts.md
+/s5/honours/noc26_cs177_all_transcripts.md
+/s5/honours/*_transcripts.zip
+/s5/honours/assignments.zip

@@ -2078,6 +2078,46 @@ td {
   padding-top: 0;
   border-top: 0;
 }
+.study-preset-label,
+.study-preset-select {
+  grid-column: 1 / -1;
+}
+.study-preset-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #284655;
+  font-size: 12px;
+  font-weight: 650;
+}
+.study-preset-select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 9px 10px;
+  border: 1px solid #a9c2cc;
+  border-radius: 6px;
+  background: #fff;
+  color: #17313e;
+  font: inherit;
+  font-size: 12px;
+}
+.study-preset-note {
+  grid-column: 1 / -1;
+  margin: -4px 0 12px;
+  color: #536a78;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.study-preset-note p {
+  margin: 0 0 5px;
+}
+.study-preset-note a {
+  margin-right: 12px;
+  color: #006e60;
+  font-weight: 650;
+}
+.task-section .task-options {
+  grid-column: 1 / -1;
+}
 .task-options {
   display: flex;
   gap: 5px;

@@ -2,7 +2,7 @@ use random::Uniform;
 use serde::{Deserialize, Serialize};
 use std::{
     cmp::Ordering,
-    collections::{BinaryHeap, VecDeque},
+    collections::{BTreeSet, BinaryHeap, HashMap, VecDeque},
 };
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -183,6 +183,11 @@ pub fn transition(mut state: State, event: Event, config: &Config) -> State {
             lane.busy_time += dt;
         }
     }
+    let (check_start, check_end) = match &event.kind {
+        Kind::Arrival(m, _) | Kind::Departure(m) => (*m, *m + 1),
+        Kind::PhaseStart(phase, _) => (phase * 3, phase * 3 + 3),
+        Kind::PhaseEnd => (0, 0),
+    };
     state.time = event.time;
     match event.kind {
         Kind::Arrival(m, id) => {
@@ -199,7 +204,7 @@ pub fn transition(mut state: State, event: Event, config: &Config) -> State {
             state.green_end = end;
         }
     }
-    for m in 0..12 {
+    for m in check_start..check_end {
         let lane = &mut state.lanes[m];
         if state.phase == Some(m / 3)
             && lane.service_end.is_none()
@@ -267,6 +272,79 @@ pub struct Run {
     pub frames: Vec<Frame>,
     pub vehicles: Vec<VehicleTrace>,
 }
+#[derive(Clone, Copy)]
+pub struct TrainingResult {
+    pub delay: f64,
+    pub arrivals: u32,
+    pub remaining: usize,
+}
+
+fn phase_starts(green: [f64; 4], clearance: f64) -> [f64; 4] {
+    let quarter = clearance / 4.0;
+    [
+        0.0,
+        green[0] + quarter,
+        green[0] + quarter + green[1] + quarter,
+        green[0] + quarter + green[1] + quarter + green[2] + quarter,
+    ]
+}
+
+/// Simulate each distinct approach phase once per shared arrival scenario, then
+/// combine those independent queue costs for each complete timing plan.
+pub fn training_batch(
+    config: &Config,
+    scenario: &Scenario,
+    plans: &[[f64; 4]],
+) -> Vec<TrainingResult> {
+    let arrivals: [Scenario; 4] = std::array::from_fn(|approach| Scenario {
+        arrivals: scenario
+            .arrivals
+            .iter()
+            .filter(|arrival| arrival.lane / 3 == approach)
+            .cloned()
+            .collect(),
+        samples: Vec::new(),
+    });
+    let cases = plans
+        .iter()
+        .flat_map(|green| {
+            let starts = phase_starts(*green, config.clearance);
+            (0..4).map(move |phase| (phase, starts[phase].to_bits(), green[phase].to_bits()))
+        })
+        .collect::<BTreeSet<_>>();
+    let outcomes = cases
+        .into_iter()
+        .map(|case| {
+            let (phase, start, green) = case;
+            let run = simulate_core(
+                config,
+                &arrivals[phase],
+                false,
+                None,
+                Some((phase, f64::from_bits(start), f64::from_bits(green))),
+            );
+            (case, (run.delay, run.remaining))
+        })
+        .collect::<HashMap<_, _>>();
+    let total_arrivals = scenario.arrivals.len() as u32;
+    plans
+        .iter()
+        .map(|green| {
+            let starts = phase_starts(*green, config.clearance);
+            let (delay, remaining) = (0..4).fold((0.0, 0), |(delay, remaining), phase| {
+                let case = (phase, starts[phase].to_bits(), green[phase].to_bits());
+                let (phase_delay, phase_remaining) = outcomes[&case];
+                (delay + phase_delay, remaining + phase_remaining)
+            });
+            TrainingResult {
+                delay,
+                arrivals: total_arrivals,
+                remaining,
+            }
+        })
+        .collect()
+}
+
 fn frame(state: &State) -> Frame {
     Frame {
         time: state.time,
@@ -278,7 +356,7 @@ fn frame(state: &State) -> Frame {
     }
 }
 pub fn simulate(config: &Config, scenario: &Scenario, trace: bool) -> Run {
-    simulate_core(config, scenario, trace, None)
+    simulate_core(config, scenario, trace, None, None)
 }
 pub fn simulate_with_profile(
     config: &Config,
@@ -286,7 +364,7 @@ pub fn simulate_with_profile(
     trace: bool,
     profile: &mut [[f64; 4]],
 ) -> Run {
-    simulate_core(config, scenario, trace, Some(profile))
+    simulate_core(config, scenario, trace, Some(profile), None)
 }
 fn add_queue_area(state: &State, end: f64, horizon: f64, profile: &mut [[f64; 4]]) {
     if profile.is_empty() || end <= state.time {
@@ -313,6 +391,7 @@ fn simulate_core(
     scenario: &Scenario,
     trace: bool,
     mut profile: Option<&mut [[f64; 4]]>,
+    phase_only: Option<(usize, f64, f64)>,
 ) -> Run {
     let mut events = BinaryHeap::new();
     let mut sequence = 0;
@@ -324,24 +403,40 @@ fn simulate_core(
             kind: Kind::Arrival(a.lane, id),
         });
     }
+    let phase_offsets = phase_starts(config.green, config.clearance);
     let mut cycle_start = 0.0;
     while cycle_start < config.horizon {
-        let mut start = cycle_start;
-        for p in 0..4 {
-            let end = start + config.green[p];
+        if let Some((phase, offset, green)) = phase_only {
+            let start = cycle_start + offset;
             sequence += 1;
             events.push(Event {
                 time: start,
                 order: sequence,
-                kind: Kind::PhaseStart(p, end),
+                kind: Kind::PhaseStart(phase, start + green),
             });
             sequence += 1;
             events.push(Event {
-                time: end,
+                time: start + green,
                 order: sequence,
                 kind: Kind::PhaseEnd,
             });
-            start = end + config.clearance / 4.0;
+        } else {
+            for p in 0..4 {
+                let start = cycle_start + phase_offsets[p];
+                let end = start + config.green[p];
+                sequence += 1;
+                events.push(Event {
+                    time: start,
+                    order: sequence,
+                    kind: Kind::PhaseStart(p, end),
+                });
+                sequence += 1;
+                events.push(Event {
+                    time: end,
+                    order: sequence,
+                    kind: Kind::PhaseEnd,
+                });
+            }
         }
         cycle_start += config.cycle;
     }

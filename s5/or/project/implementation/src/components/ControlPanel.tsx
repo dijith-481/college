@@ -13,7 +13,18 @@ import {
   vehiclesPerRoadLimit,
 } from "../controls";
 import { approaches, colors, number, type Four, type Request } from "../types";
+import studyCasesJson from "../study_cases.json";
 import Slider from "./Slider";
+
+const studyCases = studyCasesJson as {
+  id: string;
+  label: string;
+  request: Request;
+  source_note?: string;
+  source_url?: string;
+  record_url?: string;
+  license_url?: string;
+}[];
 
 const budgets = [
   { name: "Quick check", search: 64, test: 128 },
@@ -61,6 +72,23 @@ export default function ControlPanel(props: {
     vehicleCountsFromRates(props.request.config.rates, props.request.config.horizon),
   );
   const [weights, setWeights] = createSignal<Four>(vehicles());
+  const selectedStudyCase = createMemo(
+    () =>
+      studyCases.find((item) => JSON.stringify(item.request) === JSON.stringify(props.request))
+        ?.id ?? "",
+  );
+  const selectedStudyPreset = createMemo(() =>
+    studyCases.find((item) => item.id === selectedStudyCase()),
+  );
+  const applyStudyCase = (id: string) => {
+    const item = studyCases.find((caseItem) => caseItem.id === id);
+    if (!item) return;
+    const next = structuredClone(item.request);
+    const counts = vehicleCountsFromRates(next.config.rates, next.config.horizon);
+    setVehicles(counts);
+    setWeights(counts);
+    props.onChange(next);
+  };
   const totalVehicles = () => vehicles().reduce((sum, count) => sum + count, 0);
   const perRoadMax = () => vehiclesPerRoadLimit(props.request.config.horizon);
   const totalMax = () =>
@@ -91,6 +119,36 @@ export default function ControlPanel(props: {
       </div>
       <fieldset disabled={props.busy}>
         <section class="control-section task-section">
+          <label class="study-preset-label" for="study-preset">
+            Scenario presets
+          </label>
+          <select
+            id="study-preset"
+            class="study-preset-select"
+            value={selectedStudyCase()}
+            onChange={(event) => applyStudyCase(event.currentTarget.value)}
+          >
+            <option value="" disabled>
+              Custom settings
+            </option>
+            <For each={studyCases}>{(item) => <option value={item.id}>{item.label}</option>}</For>
+          </select>
+          <Show when={selectedStudyPreset()?.source_note}>
+            {(note) => (
+              <div class="study-preset-note">
+                <p>{note()}</p>
+                <a href={selectedStudyPreset()?.source_url} target="_blank" rel="noreferrer">
+                  Dataset
+                </a>
+                <a href={selectedStudyPreset()?.record_url} target="_blank" rel="noreferrer">
+                  Count table
+                </a>
+                <a href={selectedStudyPreset()?.license_url} target="_blank" rel="noreferrer">
+                  Licence
+                </a>
+              </div>
+            )}
+          </Show>
           <div class="task-options" role="group" aria-label="Experiment goal">
             <button
               type="button"

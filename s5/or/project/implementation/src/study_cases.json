@@ -1,0 +1,302 @@
+[
+  {
+    "id": "baseline-quick",
+    "label": "Baseline / quick",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 128,
+      "training_replications": 64,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "baseline-reference",
+    "label": "Baseline / reference",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": true
+    }
+  },
+  {
+    "id": "baseline-precise",
+    "label": "Baseline / precise",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 5000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "quiet-reference",
+    "label": "Quiet / reference",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          300,
+          175,
+          275,
+          150
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "heavy-reference",
+    "label": "Heavy / reference",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          900,
+          525,
+          825,
+          450
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "south-heavy-reference",
+    "label": "South-heavy / reference",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          300,
+          350,
+          850,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "fine-grid-verification",
+    "label": "Fine-grid verification",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 5000,
+      "training_replications": 128,
+      "grid_step": 1,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "toronto-eglinton-victoria-am-peak",
+    "label": "Toronto: Eglinton / Victoria Park (AM peak)",
+    "source_note": "Observed AM peak total: 3,139 vehicles/hour on 2026-09-16. The public summary is not directional, so this preset splits the total evenly across four approaches and retains the default 20/60/20 turn probabilities. Both splits are assumptions, not measured approach or movement counts.",
+    "source_url": "https://open.toronto.ca/dataset/traffic-volumes-at-intersections-for-all-modes/",
+    "record_url": "https://www.toraffic.ca/data/intersection-counts",
+    "license_url": "https://open.toronto.ca/open-data-licence/",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          784.75,
+          784.75,
+          784.75,
+          784.75
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 128,
+      "training_replications": 64,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  }
+]
