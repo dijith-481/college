@@ -1,0 +1,9 @@
+[package]
+name = "experiments"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+random = { path = "../random" }
+simulation = { path = "../simulation" }
+serde.workspace = true
