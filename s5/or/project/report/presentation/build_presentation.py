@@ -4,35 +4,261 @@ ROOT = Path(__file__).resolve().parent
 slides = []
 
 
-def slide(number, title, body, label=""):
-    slides.append(f'''<section class="slide"><div class="top"><span>OPERATIONS RESEARCH · PBCBT504</span><span>TEAM PRESENTATION</span></div><div class="content"><div class="label">{label or f'SLIDE {number:02d}'}</div><h1>{title}</h1>{body}</div><div class="bottom"><span>traffic-signal-analysis.pages.dev</span><span>{number:02d} / 08</span></div></section>''')
+def slide(number, title, body, label):
+    slides.append(
+        f"""<section class="slide{' title-slide' if number == 1 else ''}">
+  <header class="top"><span>OPERATIONS RESEARCH · PBCBT504</span><span>{label}</span></header>
+  <main class="content">
+    <h1>{title}</h1>
+    {body}
+  </main>
+  <footer class="bottom">
+    <span>October 26, 2026</span>
+    <span>Operations Research · PBCBT504</span>
+    <span>{number}/08</span>
+  </footer>
+</section>"""
+    )
 
 
-def fig(name):
-    return f'<img src="../assets/{name}" alt="Result chart">'
+def fig(name, alt):
+    return f'<img src="../assets/{name}" alt="{alt}">'
 
 
-slide(1,"Where should the green time go?",'''<p class="lead">A stochastic queuing study of a four-approach traffic signal.</p><div class="hero"><div><strong>4</strong><span>incoming approaches</span></div><div><strong>12</strong><span>movement queues</span></div><div><strong>80 s</strong><span>green per cycle</span></div></div><p class="minor">Project team: Dijith Dinesh · Athuljith S · Peter Joe Menachery · Pranav Manoj<br>Government Model Engineering College · Semester S5 · October 2026</p>''',"THE DECISION")
+slide(
+    1,
+    "Stochastic Traffic Signal Timing Optimization",
+    """<p class="lead">A queuing and Monte Carlo study</p>
+    <div class="authors">
+      <strong>Dijith Dinesh</strong><strong>Athuljith S</strong>
+      <strong>Peter Joe Menachery</strong><strong>Pranav Manoj</strong>
+    </div>
+    <p class="minor">Department of Computer Engineering<br>
+      Government Model Engineering College, Thrikkakara<br>
+      Semester S5 · October 2026</p>""",
+    "PROJECT PRESENTATION",
+)
 
-slide(2,"A precise, limited question",'''<div class="columns"><div><h2>Decision</h2><p>Four green durations: North, East, South, West.</p><h2>Fixed settings</h2><p>96 s cycle, 16 s clearance, protected phase order, two-second service headway.</p></div><div class="box"><h2>Scenario model</h2><p>Initially empty queues; hypothetical Poisson demand; ten-minute operating period.</p><p class="em">Objective: minimize expected cumulative queue waiting.</p></div></div><p class="footnote">No real intersection was measured. All performance claims are conditional on the scenario model.</p>''',"PROBLEM DEFINITION")
+slide(
+    2,
+    "A precise, limited question",
+    """<div class="three-cards">
+      <article class="panel"><h2>Decision</h2>
+        <p>Choose green durations for North, East, South, and West.</p>
+        <div class="formula">g<sub>N</sub> + g<sub>E</sub> + g<sub>S</sub> + g<sub>W</sub> = 80 s</div>
+        <p>The search compares feasible allocations on a fixed grid.</p>
+      </article>
+      <article class="panel"><h2>Signal operation</h2>
+        <p>A 96-second cycle contains four protected phases and 16 seconds of clearance.</p>
+        <p>Vehicles are served at a fixed two-second headway while their movement has green.</p>
+      </article>
+      <article class="panel"><h2>Scenario scope</h2>
+        <p>Initially empty queues, assumed Poisson arrivals, 12 movement queues, and a 600-second horizon.</p>
+        <p>No field measurements are used in this primary experiment.</p>
+      </article>
+    </div>
+    <p class="objective"><strong>Objective:</strong> minimize expected cumulative waiting, measured in vehicle-seconds.</p>""",
+    "MODEL AND DECISION",
+)
 
-slide(3,"From arrivals to waiting cost",'''<div class="equations"><div><span>Arrivals</span><b>Δt = −ln(1−U) / λ</b><small>LCG uniform → exponential gap → Poisson stream</small></div><div><span>Queue cost</span><b>D<sub>T</sub> = Σ<sub>m</sub> ∫<sub>0</sub><sup>T</sup> Q<sub>m</sub>(t) dt</b><small>Area under 12 waiting-queue curves · vehicle-seconds</small></div></div><p class="lead small">Turning draws assign each vehicle left, straight, or right; signal phases decide when each dedicated lane may serve.</p>''',"MATHEMATICAL MODEL")
+slide(
+    3,
+    "From arrivals to waiting cost",
+    """<div class="two-cards">
+      <article class="panel"><h2>Poisson arrivals</h2>
+        <p>Uniform pseudorandom draws are transformed into exponential interarrival gaps:</p>
+        <div class="formula">Δt = −ln(1 − U) / λ</div>
+        <p>A turning draw assigns each vehicle to a dedicated left, through, or right queue.</p>
+      </article>
+      <article class="panel"><h2>Queue-area objective</h2>
+        <div class="formula">D<sub>T</sub>(g) = Σ<sub>m=1</sub><sup>12</sup> ∫<sub>0</sub><sup>T</sup> Q<sub>m</sub>(t; g) dt</div>
+        <p>Cumulative waiting in vehicle-seconds, including partial waiting still in progress at the horizon.</p>
+      </article>
+    </div>
+    <p class="objective">Every candidate timing uses the same training arrivals to reduce noise in the comparison.</p>""",
+    "MATHEMATICAL MODEL",
+)
 
-slide(4,"Search, then test on fresh traffic",'''<div class="steps"><div><b>1</b><strong>Enumerate</strong><span>All feasible grid timings</span></div><div><b>2</b><strong>Train</strong><span>Same arrivals for every timing</span></div><div><b>3</b><strong>Select</strong><span>Lowest estimated mean waiting</span></div><div><b>4</b><strong>Evaluate</strong><span>New matched arrivals and intervals</span></div></div><div class="box"><strong>Why simulation?</strong><p>Signal service stops at red and uses fixed two-second headways. The ordinary continuously serving M/M/1 formula is not an exact solution.</p></div><p class="footnote">Rust discrete-event core → WebAssembly → SolidJS results and replay.</p>''',"OR METHOD")
+slide(
+    4,
+    "Search, then evaluate on fresh traffic",
+    """<div class="steps">
+      <article><b>1</b><strong>Enumerate</strong><span>Feasible timings</span></article>
+      <article><b>2</b><strong>Score</strong><span>Shared training arrivals</span></article>
+      <article><b>3</b><strong>Select</strong><span>Lowest estimated mean</span></article>
+      <article><b>4</b><strong>Evaluate</strong><span>New matched arrivals</span></article>
+    </div>
+    <div class="two-cards lower">
+      <article class="panel"><h2>Why simulation?</h2>
+        <p>Service is gated by protected green phases and deterministic headways. A continuously serving M/M/1 formula does not represent this operation exactly.</p>
+      </article>
+      <article class="panel"><h2>Reported measures</h2>
+        <p>Mean waiting, paired differences, queue profiles, residual backlog, and uncertainty intervals.</p>
+      </article>
+    </div>""",
+    "OPERATIONS RESEARCH METHOD",
+)
 
-slide(5,"The ten-minute result",'''<div class="chart-row"><div class="chart">''' + fig('fig-timing.svg') + '''</div><div class="stat"><span>Selected green N/E/S/W</span><strong>28 / 16 / 24 / 12 s</strong><span>Fresh mean waiting</span><strong>10,507.8 vehicle-s</strong><span>vs entered timing, paired saving</span><strong>104.2 vehicle-s</strong><small>95% interval: 69.6–138.8 · 1,000 fresh runs</small></div></div><p class="footnote">The selected four-second-grid plan equals the demand-proportional baseline. The improvement is modest: ≈0.35 s per expected arrival.</p>''',"PRIMARY RESULT")
+slide(
+    5,
+    "The ten-minute reference result",
+    f"""<div class="chart-row">
+      <div class="chart">{fig("fig-timing.svg", "Waiting cost by timing plan")}</div>
+      <article class="stat">
+        <h2>Four-second-grid result</h2>
+        <span>Selected green (N/E/S/W)</span><strong>28 / 16 / 24 / 12 s</strong>
+        <span>Fresh mean</span><strong>10,507.8 vehicle-seconds/run</strong>
+        <span>Saving vs entered timing</span><strong>104.2 vehicle-seconds/run</strong>
+        <small>1,000 fresh runs · paired 95% interval: 69.6–138.8</small>
+      </article>
+    </div>
+    <p class="footnote">The selected plan equals the demand-proportional baseline; the mean reduction is modest.</p>""",
+    "PRIMARY RESULT",
+)
 
-slide(6,"Fine-grid timing result",'''<div class="chart-row"><div class="chart">''' + fig('fig-grid-timing.svg') + '''</div><div class="stat"><span>Selected green N/E/S/W</span><strong>26 / 16 / 24 / 14 s</strong><span>Feasible timings · training runs each</span><strong>19,369 · 128</strong><span>Search runtime</span><strong>6.86 s</strong><span>Saving on matched fresh scenarios</span><strong>44.8 vehicle-s</strong><small>5,000 runs · 0.42% · paired 95% interval: 34.8–54.8</small></div></div><p class="footnote">The result supports a small, model-conditional difference between these two selected timing plans; it does not establish a global optimum.</p>''',"FINE-GRID EVALUATION")
+slide(
+    6,
+    "Fine-grid timing result",
+    f"""<div class="chart-row">
+      <div class="chart">{fig("fig-grid-timing.svg", "Selected green allocation by timing grid")}</div>
+      <article class="stat">
+        <span>Selected green (N/E/S/W)</span><strong>26 / 16 / 24 / 14 s</strong>
+        <span>Feasible allocations · training runs each</span><strong>19,369 · 128</strong>
+        <span>Search runtime</span><strong>6.86 seconds</strong>
+        <span>Saving on 5,000 matched fresh runs</span><strong>44.8 vehicle-seconds/run</strong>
+        <small>0.42% · paired 95% interval: 34.8–54.8</small>
+      </article>
+    </div>
+    <p class="footnote">The result supports a small difference between the selected plans for this model; it does not establish a global optimum.</p>""",
+    "FINE-GRID EVALUATION",
+)
 
-slide(7,"Demand can outrun capacity",'''<div class="chart-row"><div class="chart">''' + fig('fig-capacity.svg') + '''</div><div class="stat"><span>Heavy scenario</span><strong>2,700 veh/h</strong><span>Minimum green required by straight streams</span><strong>86.4 s</strong><span>Green available</span><strong>80 s</strong></div></div><p class="footnote">No green reallocation can serve all modeled straight demand. Mean end backlog increases from 54.4 vehicles at 10 min to 110.1 at 32 min.</p>''',"CAPACITY STRESS TEST")
+slide(
+    7,
+    "Heavy demand can exceed modeled capacity",
+    f"""<div class="chart-row">
+      <div class="chart">{fig("fig-capacity.svg", "Demand and capacity by approach")}</div>
+      <article class="stat">
+        <span>Heavy-scenario total arrival rate</span><strong>2,700 veh/h</strong>
+        <span>Green required by straight streams</span><strong>86.4 seconds</strong>
+        <span>Green available per cycle</span><strong>80 seconds</strong>
+      </article>
+    </div>
+    <p class="footnote">Mean backlog: 54.4 vehicles at 10 minutes and 110.1 vehicles at 32 minutes.</p>""",
+    "CAPACITY LIMIT",
+)
 
-slide(8,"Use the recommendation within its scope",'''<div class="chart-row"><div class="chart">''' + fig('fig-horizon.svg') + '''</div><div class="stat"><span>10 min</span><strong>Timing gain resolved</strong><span>32 min</span><strong>Difference unresolved</strong><small>Paired 95% interval crosses zero: −40.3 to 70.2 vehicle-s.</small></div></div><div class="end"><strong>Next:</strong> 90-second live demo · <a href="https://traffic-signal-analysis.pages.dev/">traffic-signal-analysis.pages.dev</a><br><small>Field counts and calibration are needed before real-world use.</small></div>''',"INTERPRETATION")
+slide(
+    8,
+    "Interpret the recommendation within its scope",
+    f"""<div class="chart-row">
+      <div class="chart">{fig("fig-horizon.svg", "Timing advantage by operating period")}</div>
+      <article class="stat">
+        <span>10-minute horizon</span><strong>105.5 vehicle-seconds/run saved</strong>
+        <small>Paired 95% interval: 88.5–122.5</small>
+        <span>32-minute horizon</span><strong>15.0 vehicle-seconds/run saved</strong>
+        <small>Paired 95% interval: −40.3–70.2; no resolved difference.</small>
+      </article>
+    </div>
+    <p class="footnote">Field counts and calibration are needed before applying the timing outside this model.</p>""",
+    "INTERPRETATION",
+)
 
 assert len(slides) == 8
 
-css = '''@page{size:13.333in 7.5in;margin:0}*{box-sizing:border-box}html,body{margin:0;background:#d9e6e9;color:#203540;font-family:Arial,"DejaVu Sans",sans-serif}.slide{width:13.333in;height:7.5in;background:#f3f6f8;position:relative;overflow:hidden;break-after:page;margin:0 auto}.slide:before{content:"";display:block;height:12px;background:linear-gradient(90deg,#006e60 0 62%,#6355b4 62% 76%,#bd5720 76% 88%,#2464b3 88%)}.top,.bottom{display:flex;justify-content:space-between;align-items:center;padding:17px 55px;font-size:14px;letter-spacing:1.5px;color:#54707c;font-weight:700}.top{border-bottom:1px solid #d4e3e7}.bottom{position:absolute;bottom:0;width:100%;border-top:1px solid #d4e3e7}.content{padding:25px 55px 0}.label{color:#006e60;font-size:16px;letter-spacing:2px;font-weight:700}h1{font-size:49px;letter-spacing:-1.5px;line-height:1.05;margin:10px 0 25px}h2{font-size:23px;color:#006e60;margin:15px 0 8px}p{font-size:22px;line-height:1.35;margin:0 0 16px}.lead{font-size:29px}.small{font-size:22px}.minor{font-size:19px;color:#55727e;margin-top:34px}.footnote{font-size:18px;color:#55727e;margin-top:18px}.em{font-weight:700;color:#006e60}.hero{display:flex;gap:18px;margin:38px 0 28px}.hero div{flex:1;background:#e1f0eb;padding:22px;border-top:7px solid #006e60;border-radius:6px}.hero strong,.hero span,.bigbox strong,.bigbox span{display:block}.hero strong{font-size:58px;color:#006e60}.hero span{font-size:21px}.columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}.box{background:#e1f0eb;border:1px solid #b6d5cb;padding:22px;border-radius:8px}.box p{font-size:22px}.equations{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:38px 0}.equations div{background:#fff;border:1px solid #d4e2e5;padding:26px;border-radius:8px;min-height:200px}.equations span,.equations b,.equations small{display:block}.equations span{font-size:17px;color:#006e60;font-weight:700}.equations b{font:34px "DejaVu Serif",serif;margin:23px 0}.equations small{font-size:19px;color:#55727e}.steps{display:flex;gap:15px;margin:26px 0}.steps div{flex:1;background:#fff;border-top:7px solid #006e60;padding:20px;min-height:160px}.steps b,.steps strong,.steps span{display:block}.steps b{font-size:37px;color:#006e60}.steps strong{font-size:22px}.steps span{font-size:17px;color:#55727e;margin-top:8px}.chart-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:stretch}.chart{min-width:0;background:#fff;border:1px solid #d5e1e5;border-radius:8px;padding:10px;display:flex;align-items:center;justify-content:center}.chart img{display:block;width:100%;max-height:430px;object-fit:contain}.stat{min-width:0;background:#e1f0eb;padding:20px;border-radius:8px}.stat span,.stat strong,.stat small{display:block}.stat span{font-size:17px;margin-top:10px}.stat strong{font-size:27px;color:#006e60}.stat small{font-size:16px;color:#55727e;margin-top:12px}.bigbox{background:#e1f0eb;padding:25px;border-radius:8px}.bigbox strong{font-size:55px;color:#006e60}.bigbox span{font-size:21px;margin-bottom:20px}.end{background:#e1f0eb;border-left:7px solid #006e60;padding:14px 20px;font-size:19px;line-height:1.4;margin-top:15px}a{color:#006e60}@media screen{.slide{margin:20px auto;display:none}.slide.active{display:block}.nav{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:5}.nav button{background:#006e60;color:white;border:0;padding:12px 17px;font-size:18px;border-radius:5px;cursor:pointer}}@media print{html,body{background:white}.slide{display:block!important;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}.nav{display:none}}'''
+css = """
+@page { size: 13.333in 7.5in; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #e7ebf0; color: #203540; font-family: Arial, "DejaVu Sans", sans-serif; }
+.slide {
+  container-type: inline-size; position: relative; overflow: hidden;
+  width: min(1280px, calc(100vw - 40px)); aspect-ratio: 16 / 9;
+  display: none; margin: 24px auto; background: #fff; break-after: page;
+}
+.slide.active { display: block; }
+.top { display: none; }
+.content { position: absolute; top: 4%; left: 0; right: 0; bottom: 11%; padding: 0 3.2%; }
+h1 {
+  margin: 0 0 3%; padding: 1.25cqw 2.2cqw; background: #3733b8; color: #fff;
+  text-align: left; font-size: 2.15cqw; line-height: 1.15; font-weight: 700;
+}
+h2 { margin: 0 0 1.2%; color: #3733b8; font-size: 1.6cqw; line-height: 1.2; }
+p { margin: 0 0 1.5%; font-size: 1.45cqw; line-height: 1.35; }
+.lead { color: #203540; font-size: 2.0cqw; }
+.minor { margin-top: 3%; color: #536a78; font-size: 1.32cqw; line-height: 1.5; }
+.authors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4% 5%; width: 68%; margin: 3.5% auto 0; font-size: 1.72cqw; text-align: left; }
+.title-slide .content { text-align: center; top: 13%; left: 4%; right: 4%; bottom: 11%; }
+.title-slide h1 {
+  max-width: 100%; margin: 0 auto 2.5%; padding: 2.0cqw 3.0cqw;
+  text-align: center; font-size: 3.2cqw; line-height: 1.1; border-radius: .6cqw;
+}
+.title-slide .minor { margin-top: 3%; }
+.bottom {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 5.6%;
+  display: grid; grid-template-columns: 20% 60% 20%; align-items: center;
+  background: #3733b8; color: #fff; padding: 0 2.2%; font-size: 1.02cqw;
+}
+.bottom span:first-child { text-align: left; }
+.bottom span:nth-child(2) { text-align: center; font-weight: 700; }
+.bottom span:last-child { text-align: right; }
+.three-cards, .two-cards { display: grid; gap: 1.8%; align-items: stretch; }
+.three-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.two-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.panel { min-width: 0; padding: .3cqw 1.1cqw .3cqw 0; }
+.panel + .panel { border-left: 1px solid #d8dee9; padding-left: 1.4cqw; }
+.panel p { font-size: 1.36cqw; }
+.formula { margin: 2.0% 0; color: #203540; font: 1.9cqw "DejaVu Serif", Georgia, serif; text-align: center; }
+.objective { margin-top: 2.4%; padding: 1.2cqw 1.5cqw; border-left: .45cqw solid #3733b8; background: #f1f3fb; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.7%; margin: 2.2% 0 4%; }
+.steps article { min-width: 0; padding: 1.2cqw 1.1cqw; border-top: 1px solid #d8dee9; }
+.steps b, .steps strong, .steps span { display: block; }
+.steps b { margin-bottom: 5%; color: #3733b8; font-size: 2.8cqw; }
+.steps strong { font-size: 1.58cqw; }
+.steps span { margin-top: 4%; color: #536a78; font-size: 1.25cqw; line-height: 1.25; }
+.lower .panel p { font-size: 1.45cqw; }
+.chart-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .95fr); gap: 2.3%; height: 66%; min-height: 0; }
+.chart { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.chart img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.stat { min-width: 0; padding: .3cqw 0 0 1.4cqw; border-left: 1px solid #d8dee9; overflow: hidden; }
+.stat span, .stat strong, .stat small { display: block; }
+.stat span { margin: 1.4% 0 .4%; color: #536a78; font-size: 1.22cqw; line-height: 1.2; }
+.stat strong { color: #203540; font-size: 1.55cqw; line-height: 1.2; }
+.stat small { margin-top: 1.6%; color: #536a78; font-size: 1.16cqw; line-height: 1.25; }
+.footnote { position: absolute; left: 0; right: 0; bottom: 0; color: #536a78; font-size: 1.2cqw; line-height: 1.25; }
+.nav { position: fixed; z-index: 5; right: 16px; bottom: 16px; display: flex; gap: 6px; }
+.nav button { border: 0; padding: 10px 14px; background: #3733b8; color: #fff; font-size: 18px; cursor: pointer; }
+@media screen and (max-width: 700px) {
+  .slide { width: calc(100vw - 16px); margin: 8px auto; }
+}
+@media print {
+  html, body { background: #fff; }
+  .slide { display: block !important; width: 13.333in; height: 7.5in; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .nav { display: none; }
+}
+"""
 
-script = '''<script>let i=0;const s=[...document.querySelectorAll('.slide')];function show(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach((x,j)=>x.classList.toggle('active',j===i));}document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){show(i+1);e.preventDefault()}if(['ArrowLeft','PageUp'].includes(e.key)){show(i-1);e.preventDefault()}});show(0);</script>'''
-html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Traffic Signal OR Presentation</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>' + css + '</style></head><body>' + ''.join(slides) + '<div class="nav"><button onclick="show(i-1)">←</button><button onclick="show(i+1)">→</button></div>' + script + '</body></html>'
-(ROOT / 'presentation.html').write_text(html)
-print('Wrote 8 presentation slides')
+script = """<script>
+let current = 0;
+const slides = [...document.querySelectorAll('.slide')];
+function show(index) {
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((item, i) => item.classList.toggle('active', i === current));
+}
+document.addEventListener('keydown', event => {
+  if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { show(current + 1); event.preventDefault(); }
+  if (['ArrowLeft', 'PageUp'].includes(event.key)) { show(current - 1); event.preventDefault(); }
+});
+show(0);
+</script>"""
+
+html = (
+    '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+    '<title>Traffic Signal Timing Presentation</title>'
+    '<meta name="viewport" content="width=device-width,initial-scale=1">'
+    f'<style>{css}</style></head><body>{"".join(slides)}'
+    '<div class="nav"><button onclick="show(current-1)">←</button>'
+    '<button onclick="show(current+1)">→</button></div>'
+    f'{script}</body></html>'
+)
+(ROOT / "presentation.html").write_text(html)
+print("Wrote 8 presentation slides")

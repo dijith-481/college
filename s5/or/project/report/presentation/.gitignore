@@ -4,3 +4,7 @@
 *.out
 *.snm
 *.toc
+*.fdb_latexmk
+*.fls
+*.xdv
+*.synctex.gz
