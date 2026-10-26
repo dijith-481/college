@@ -259,6 +259,154 @@
     }
   },
   {
+    "id": "baseline-16-minute-audit",
+    "label": "Baseline / 16-minute horizon",
+    "request": {
+      "config": {
+        "horizon": 960,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "baseline-32-minute-audit",
+    "label": "Baseline / 32-minute horizon",
+    "request": {
+      "config": {
+        "horizon": 1920,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "heavy-32-minute-audit",
+    "label": "Heavy demand / 32-minute horizon",
+    "request": {
+      "config": {
+        "horizon": 1920,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          900,
+          525,
+          825,
+          450
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2026,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
+    "id": "baseline-seed-2027-audit",
+    "label": "Baseline / alternate seed 2027",
+    "request": {
+      "config": {
+        "horizon": 600,
+        "cycle": 96,
+        "clearance": 16,
+        "headway": 2,
+        "rates": [
+          600,
+          350,
+          550,
+          300
+        ],
+        "turns": [
+          0.2,
+          0.6,
+          0.2
+        ],
+        "green": [
+          24,
+          16,
+          24,
+          16
+        ]
+      },
+      "replications": 1000,
+      "training_replications": 256,
+      "grid_step": 4,
+      "min_green": 8,
+      "max_green": 44,
+      "seed": 2027,
+      "optimize": true,
+      "sensitivity": false
+    }
+  },
+  {
     "id": "toronto-eglinton-victoria-am-peak",
     "label": "Toronto: Eglinton / Victoria Park (AM peak)",
     "source_note": "Observed AM peak total: 3,139 vehicles/hour on 2026-09-16. The public summary is not directional, so this preset splits the total evenly across four approaches and retains the default 20/60/20 turn probabilities. Both splits are assumptions, not measured approach or movement counts.",

@@ -30,6 +30,8 @@ const budgets = [
   { name: "Quick check", search: 64, test: 128 },
   { name: "Standard", search: 256, test: 1000 },
   { name: "Thorough", search: 1000, test: 5000 },
+  { name: "Extended", search: 1024, test: 10000 },
+  { name: "Deep search", search: 4096, test: 25000 },
 ];
 const countSteps = Array.from({ length: 1001 }, (_, i) =>
   Math.round(Math.expm1((Math.log1p(1000000) * i) / 1000)),
@@ -267,12 +269,18 @@ export default function ControlPanel(props: {
         </section>
         <section class="control-section evidence-section">
           <h3>Calculation effort</h3>
+          <p class="control-note">
+            Extended settings can require millions of timing-run simulations. Review the work
+            breakdown below before starting a fine-grid search.
+          </p>
 
           <div class="budget-options" role="group" aria-label="Computation presets">
             <For each={budgets}>
               {(budget) => (
                 <button
                   type="button"
+                  title={`${number(budget.search)} training runs per timing and ${number(budget.test)} fresh test runs per plan`}
+                  aria-label={`${budget.name}: ${number(budget.search)} training runs per timing and ${number(budget.test)} fresh test runs per plan`}
                   aria-pressed={
                     props.request.replications === budget.test &&
                     (!props.request.optimize ||

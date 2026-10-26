@@ -1,0 +1,236 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage{fontspec}
+\setsansfont{Arial}
+\setmainfont{Arial}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+
+\definecolor{MECBlue}{HTML}{3733B8}
+\definecolor{Ink}{HTML}{203540}
+\definecolor{Muted}{HTML}{536A78}
+\definecolor{Pale}{HTML}{EEF1FF}
+\definecolor{PaleGreen}{HTML}{E1F0EB}
+\definecolor{SignalGreen}{HTML}{087F72}
+\definecolor{SignalOrange}{HTML}{BD5720}
+
+\setbeamercolor{normal text}{fg=Ink,bg=white}
+\setbeamercolor{structure}{fg=MECBlue}
+\setbeamercolor{frametitle}{fg=white,bg=MECBlue}
+\setbeamercolor{title}{fg=white,bg=MECBlue}
+\setbeamercolor{block title}{fg=white,bg=MECBlue}
+\setbeamercolor{block body}{fg=Ink,bg=Pale}
+\setbeamercolor{block title alerted}{fg=white,bg=SignalOrange}
+\setbeamercolor{block body alerted}{fg=Ink,bg=orange!8}
+\setbeamercolor{foot left}{fg=white,bg=MECBlue}
+\setbeamercolor{foot center}{fg=white,bg=MECBlue}
+\setbeamercolor{foot right}{fg=white,bg=MECBlue}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{items}[square]
+\setbeamertemplate{blocks}[rounded]
+
+% Flat rounded title panels and a consistent three-part footer follow the
+% supplied standard-layout reference while keeping the content area open.
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.25cm}%
+  \noindent\makebox[\textwidth][c]{%
+    \begin{beamercolorbox}[wd=0.96\textwidth,sep=7pt,center,rounded=true]{frametitle}
+      \usebeamerfont{frametitle}\insertframetitle
+    \end{beamercolorbox}%
+  }%
+  \vspace*{0.18cm}%
+}
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox to \paperwidth{\hfil%
+    \begin{beamercolorbox}[wd=0.22\textwidth,ht=2.6ex,dp=1ex,leftskip=0.25cm]{foot left}%
+      \insertshortdate
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.58\textwidth,ht=2.6ex,dp=1ex,center]{foot center}%
+      Operations Research \textperiodcentered\ PBCBT504
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.20\textwidth,ht=2.6ex,dp=1ex,rightskip=0.25cm,right]{foot right}%
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+    \hfil}%
+}
+
+\title[Traffic Signal Timing]{Stochastic Traffic Signal Timing Optimization}
+\subtitle{A queuing and Monte Carlo study}
+\author[D. Dinesh et al.]{Dijith Dinesh \and Athuljith S \and Peter Joe Menachery \and Pranav Manoj}
+\institute{Department of Computer Engineering\\Government Model Engineering College, Thrikkakara}
+\date[October 26, 2026]{October 26, 2026}
+
+\newcommand{\metric}[2]{%
+  \begin{beamercolorbox}[wd=\linewidth,sep=5pt,center,rounded=true]{block body}%
+    {\Large\bfseries\color{MECBlue}#1}\par\vspace{1pt}{\footnotesize #2}%
+  \end{beamercolorbox}%
+}
+\newcommand{\smallnote}[1]{{\footnotesize\color{Muted}#1}}
+
+\begin{document}
+
+% 1 — title page, arranged after the supplied standard title-slide reference.
+\begin{frame}
+  \vspace*{0.55cm}
+  \noindent\makebox[\textwidth][c]{%
+    \begin{beamercolorbox}[wd=0.96\textwidth,sep=12pt,center,rounded=true]{title}
+      {\LARGE\bfseries\inserttitle\par}
+    \end{beamercolorbox}%
+  }
+  \vspace{0.18cm}
+  {\large\color{Muted}\insertsubtitle\par}
+  \vspace{0.62cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.46\textwidth}
+      \centering\large\bfseries Dijith Dinesh\\[0.2cm] Peter Joe Menachery
+    \column{0.46\textwidth}
+      \centering\large\bfseries Athuljith S\\[0.2cm] Pranav Manoj
+  \end{columns}
+  \vspace{0.55cm}
+  {\normalsize Department of Computer Engineering\\
+   Government Model Engineering College, Thrikkakara\\
+   Operations Research \textperiodcentered\ PBCBT504 \textperiodcentered\ Semester S5\par}
+  \vfill
+  {\large\insertdate\par}
+  \vspace{0.18cm}
+\end{frame}
+
+% 2 — scope and assumptions.
+\begin{frame}{A precise, limited question}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+      \begin{block}{Decision}
+        Choose green durations for North, East, South, and West:
+        \[
+          \mathbf g=(g_N,g_E,g_S,g_W),\qquad \sum_i g_i=80\text{ s}.
+        \]
+        Each 96-second cycle includes 16 seconds of clearance.
+      \end{block}
+      \begin{block}{Fixed operation}
+        \small Four protected phases; two-second service; turn shares of 20/60/20.
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{Study case}
+        Initially empty queues, assumed Poisson arrivals, 12 movement queues, and a 600-second horizon.
+        \vspace{0.08cm}
+
+        \textbf{Objective:} minimize expected cumulative waiting. No field measurements are used in this primary experiment.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 3 — mathematical model.
+\begin{frame}{From arrivals to waiting cost}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.47\textwidth}
+      \begin{block}{Poisson arrivals}
+        Uniform pseudorandom draws are transformed into exponential interarrival gaps:
+        \[
+          \Delta t=-\frac{\ln(1-U)}{\lambda}.
+        \]
+        A turning draw assigns each vehicle to a dedicated left, through, or right queue.
+      \end{block}
+    \column{0.47\textwidth}
+      \begin{block}{Queue-area objective}
+        \[
+          D_T(\mathbf g)=\sum_{m=1}^{12}\int_0^T Q_m(t;\mathbf g)\,dt.
+        \]
+        \small This is cumulative waiting in vehicle-seconds, including partial waiting still in progress at the horizon.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 4 — operations research procedure.
+\begin{frame}{Search, then evaluate on fresh traffic}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.24\textwidth}\metric{1}{Enumerate\\feasible timings}
+    \column{0.24\textwidth}\metric{2}{Score on shared\\training arrivals}
+    \column{0.24\textwidth}\metric{3}{Select the lowest\\estimated mean}
+    \column{0.24\textwidth}\metric{4}{Evaluate on new,\\matched arrivals}
+  \end{columns}
+  \vspace{0.35cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.58\textwidth}
+      \begin{block}{Why simulation?}
+        Service is gated by protected green phases and deterministic headways. A continuously serving M/M/1 formula does not represent this operation exactly.
+      \end{block}
+    \column{0.38\textwidth}
+      \begin{block}{Reported measures}
+        \small Mean waiting, paired differences, queue profiles, residual backlog, and uncertainty intervals.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 5 — primary four-second-grid result.
+\begin{frame}{The ten-minute reference result}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.64\textwidth}
+      \includegraphics[height=0.38\textheight,keepaspectratio]{../assets/fig-timing.png}
+    \column{0.34\textwidth}
+      \begin{block}{Four-second-grid result}
+        \textbf{Selected green (N/E/S/W)}\\
+        {\large\bfseries 28 / 16 / 24 / 12 s}\\[0.12cm]
+        Fresh mean: {\large\bfseries 10,507.8} vehicle-seconds/run\\[0.12cm]
+        Saving vs entered timing: {\bfseries 104.2} vehicle-seconds\\
+        \small 1,000 fresh runs; paired 95\% interval: 69.6--138.8.
+      \end{block}
+  \end{columns}
+  \smallnote{The selected plan equals the demand-proportional baseline; the mean reduction is modest.}
+\end{frame}
+
+% 6 — the finer timing level and its graph.
+\begin{frame}{Fine-grid timing result}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.56\textwidth}
+      \includegraphics[height=0.37\textheight,keepaspectratio]{../assets/fig-grid-timing.png}
+    \column{0.42\textwidth}
+      \metric{26 / 16 / 24 / 14 s}{Selected green on the one-second grid}
+      \vspace{0.16cm}
+      \begin{block}{Search and fresh evaluation}
+        \small 19,369 feasible allocations; 128 training runs each.\\
+        Search runtime: 6.86 seconds.\\
+        On 5,000 matched fresh runs: {\bfseries 44.8 vehicle-seconds/run} saved (0.42\%).\\
+        Paired 95\% interval: 34.8--54.8.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 7 — capacity stress test.
+\begin{frame}{Heavy demand can exceed modeled capacity}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.62\textwidth}
+      \includegraphics[height=0.42\textheight,keepaspectratio]{../assets/fig-capacity.png}
+    \column{0.36\textwidth}
+      \metric{2,700 veh/h}{Heavy-scenario total arrival rate}
+      \vspace{0.18cm}
+      \metric{86.4 s}{Green required by straight streams}
+      \vspace{0.18cm}
+      \metric{80 s}{Green available per cycle}
+  \end{columns}
+  \vspace{0.2cm}
+  \smallnote{Mean backlog: 54.4 vehicles at 10 min; 110.1 at 32 min.}
+\end{frame}
+
+% 8 — horizon sensitivity and interpretation.
+\begin{frame}{Interpret the recommendation within its scope}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.60\textwidth}
+      \includegraphics[width=\linewidth,height=0.58\textheight,keepaspectratio]{../assets/fig-horizon.png}
+    \column{0.36\textwidth}
+      \begin{block}{10 minutes}
+        Saving: 105.5 vehicle-seconds per run\\
+        95\% interval: 88.5--122.5
+      \end{block}
+      \begin{alertblock}{32 minutes}
+        Saving: 15.0 vehicle-seconds per run\\
+        95\% interval: $-40.3$--70.2; no resolved difference.
+      \end{alertblock}
+  \end{columns}
+  \smallnote{Field counts and calibration are needed before applying the timing outside this model.}
+\end{frame}
+
+\end{document}

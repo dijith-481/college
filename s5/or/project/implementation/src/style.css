@@ -2142,12 +2142,12 @@ td {
   box-shadow: 0 1px 3px #173e3410;
 }
 .budget-options {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 5px;
   margin: 0 0 20px;
 }
 .budget-options button {
-  flex: 1;
   background: #f3f7f9;
   color: #345262;
   border: 1px solid #c4d3db;

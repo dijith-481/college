@@ -124,7 +124,7 @@ Signature and name & \hfill Signature and name
 
 \chapter*{Acknowledgements}
 \thispagestyle{fancy}
-We thank the faculty of the Department of Computer Engineering, Government Model Engineering College, for their guidance in framing this as an Operations Research study. The course material on queues, stochastic arrivals, and simulation provided the academic basis for the work. We also thank those who reviewed the problem formulation and helped us distinguish a reproducible simulation result from a field-validated traffic recommendation.
+This project was completed for PBCBT504: Operations Research in the fifth-semester B.Tech Computer Science and Business Systems programme at Government Model Engineering College. It applies the course topics of queues, stochastic arrivals, and simulation to the stated signal-timing model.
 
 \vspace{0.5cm}
 \begin{flushright}{\small\begin{tabular}{l l}
@@ -170,7 +170,7 @@ Signal timing affects waiting, throughput, and queue persistence. Equal green ca
 Four approaches (N/E/S/W) each have dedicated left, straight, and right FCFS queues. Turns exit onto the next road (from North: left/east, straight/south, right/west; same rotation elsewhere). Three lanes serve during their protected phase; clearance stops service. Capacity follows FHWA's green-share relation \cite{fhwa}.
 
 \section{Queueing Assumptions and Data Source}
-M/M/1 assumes exponential service at a continuously available server; our deterministic signal-limited service differs, so its waiting formula does not apply directly \cite{saaty,taha}. Little's formula needs compatible long-run measures \cite{little}; we verify finite-run waiting by queue-area integration. The reference experiments use synthetic inputs and describe no named junction.
+M/M/1 assumes exponential service at a continuously available server. The model's deterministic, signal-limited service differs, so the M/M/1 waiting formula does not apply directly \cite{saaty,taha}. Little's formula requires compatible long-run measures \cite{little}; finite-run waiting is evaluated by queue-area integration. The reference experiments use synthetic inputs and describe no named junction.
 
 \begin{table}[H]\centering\caption{Reference experiment inputs}\label{tab:inputs}
 \begin{tabular}{lll}\toprule
@@ -323,26 +323,14 @@ Figure~\ref{fig:queues} displays the mean waiting population by incoming approac
 \begin{figure}[H]\centering\includegraphics[width=0.75\textwidth]{assets/fig-queues.png}
 \caption{Average waiting queues by approach over the ten-minute period}\label{fig:queues}\end{figure}
 
-\section{Fine-Grid Search and Runtime}
-The one-second grid contains 19,369 feasible allocations. The original native study search used 128 training runs per candidate and finished in 209.02 seconds. The optimized Rust engine reran the same request in 6.86 seconds (30.5 times faster) and selected the same timing, 26/16/24/14 seconds. A separate 5,000-run evaluation gave 10,495.0 vehicle-seconds/run, with a pointwise 95\% interval of 10,462.8--10,527.2. On the same 5,000 fresh scenarios, it saved 44.8 vehicle-seconds/run over the four-second-grid selection (paired 95\% interval 34.8--54.8), or 0.42\% of the coarse plan's mean. The speedup comes from reusing independent approach/phase simulations; it does not change the modeled objective.
+\clearpage
+\section{Fine-Grid Search and Evaluation}
+The one-second grid contains 19,369 feasible allocations. With 128 training runs per candidate, the selected timing was 26/16/24/14 seconds. The search completed in 6.86 seconds. A separate 5,000-run evaluation gave 10,495.0 vehicle-seconds/run, with a pointwise 95\% interval of 10,462.8--10,527.2. On the same 5,000 fresh scenarios, it saved 44.8 vehicle-seconds/run over the four-second-grid selection (paired 95\% interval 34.8--54.8), or 0.42\% of the coarse plan's mean.
+
+\begin{figure}[H]\centering\includegraphics[width=0.86\textwidth]{assets/fig-grid-timing.png}
+\caption{Selected green allocation at four-second and one-second grid resolutions}\label{fig:grid-timing}\end{figure}
 
 Three additional matched seed checks each used 5,000 scenarios and favored the finer fixed plan, with savings of 46.4, 46.8, and 56.0 vehicle-seconds/run. The searches had different training counts; the result supports a small advantage of these two fixed plans for this ten-minute model, not proof of a global expected-value optimum.
-
-Table~\ref{tab:runtime} preserves the original-study wall-clock times for each complete main-study request when executed by the native release-mode Rust study program on the study machine. A request includes its timing search, fresh evaluation, and configured sensitivity work; the figures are not per-simulation costs. The optimized backend timings above are a separate post-study comparison. Neither set benchmarks the browser's WebAssembly workers or should be extrapolated to other hardware or to a million-replication run.
-
-\begin{table}[H]\centering\caption{Original-study native runtime for each principal study request}\label{tab:runtime}
-\begin{tabular}{lrrr}\toprule
-Study case & Grid & Search/fresh runs & Runtime (s)\\\midrule
-Baseline quick & 4 s & 64/128 & 2.45\\
-Baseline reference & 4 s & 256/1,000 & 10.27\\
-Baseline precise & 4 s & 256/5,000 & 11.39\\
-Quiet reference & 4 s & 256/1,000 & 4.92\\
-Heavy reference & 4 s & 256/1,000 & 14.67\\
-South-heavy reference & 4 s & 256/1,000 & 9.54\\
-Fine-grid verification & 1 s & 128/5,000 & 209.02\\\bottomrule
-\end{tabular}\end{table}
-
-The separate matched comparison of the coarse and fine selected plans took 1.25 seconds natively. The additional seed and horizon audit checks were not individually timed in the retained records, so no runtimes are claimed for them. These times are computational costs, not optimization objective values; waiting results remain the basis for the OR decision.
 
 \section{Demand, Capacity, and Horizon Sensitivity}
 Table~\ref{tab:demand} reports separately re-optimized synthetic scenarios. South-heavy demand keeps the total rate unchanged but shifts allocation toward South. Direct cumulative-waiting comparisons across 150, 300, and 450 expected arrivals also change workload, so they are not pure timing benefits.

@@ -18,6 +18,6 @@ For the main baseline, the selected timing saves 104.2 vehicle-s per run against
 
 ## Matched fine-grid verification
 
-The original 1-second search took 209.02 s and selected `26/16/24/14` instead of the 4-second grid's `28/16/24/12`. After approach-level caching, the same request took 6.86 s (30.5× faster) and selected the same plan. On the **same 5,000 fresh scenarios**, the fine timing reduced cumulative waiting by **44.8 vehicle-s per 10-minute run** (0.42% of the coarse timing's mean; paired 95% CI [34.8, 54.8]). The matched scenarios begin after the 256 training scenarios used by the coarse precise case; its mean is reproduced exactly. This is a small model-conditional gain, not proof of the real junction's optimum. See [`optimization-runtimes.json`](optimization-runtimes.json) for timing details.
+The 1-second search selected `26/16/24/14`; the 4-second grid selected `28/16/24/12`. On the **same 5,000 fresh scenarios**, the fine timing reduced cumulative waiting by **44.8 vehicle-s per 10-minute run** (0.42% of the coarse timing's mean; paired 95% CI [34.8, 54.8]). The matched scenarios begin after the 256 training scenarios used by the coarse precise case; its mean is reproduced exactly. This is a small model-conditional gain, not proof of the real junction's optimum.
 
 Raw engine results, exact requests, and plot-ready CSV files are in this folder. No real traffic measurements were used.

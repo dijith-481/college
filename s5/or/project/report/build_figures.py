@@ -66,6 +66,27 @@ for i, plan in enumerate(plans):
 body += [text(350, 485, "Horizontal axis starts at 10,000; whiskers are pointwise 95% intervals for each mean.", 13, MUTED)]
 svg("fig-timing.svg", 1000, 510, "".join(body), "Fresh waiting by timing plan")
 
+fine_grid = raw("fine-grid-verification")
+coarse_green = reference["selected"]
+fine_green = fine_grid["selected"]
+body = [text(55, 43, "Selected green allocation by timing grid", 25, INK, 700), text(55, 72, "Seconds of green per 96-second cycle · same reference demand", 15, MUTED)]
+left, right, top, bottom = 115, 930, 112, 405
+ymax = 32
+for tick in (0, 8, 16, 24, 32):
+    y = bottom - tick / ymax * (bottom - top)
+    body += [line(left, y, right, y), text(92, y + 5, tick, 14, MUTED, anchor="end")]
+for j, approach in enumerate(("North", "East", "South", "West")):
+    center = left + 105 + j * 205
+    for offset, values, color in ((-25, coarse_green, "#657e8b"), (25, fine_green, COLORS[0])):
+        value = values[j]
+        height = value / ymax * (bottom - top)
+        x = center + offset - 28
+        y = bottom - height
+        body += [rect(x, y, 56, height, color, 4), text(x + 28, y - 9, f"{round(value)} s", 14, color, 700, "middle")]
+    body.append(text(center, 438, approach, 15, INK, 650, "middle"))
+body += [rect(305, 470, 18, 18, "#657e8b", 3), text(332, 484, "Four-second grid", 14, INK), rect(555, 470, 18, 18, COLORS[0], 3), text(582, 484, "One-second grid", 14, INK)]
+svg("fig-grid-timing.svg", 1000, 510, "".join(body), "Selected signal timing by grid resolution")
+
 baseline = reference
 profile = baseline["queue_profile"]
 left, right, top, bottom = 95, 945, 100, 410
@@ -152,4 +173,4 @@ for j, row in enumerate(rows):
 body += [rect(250, 468, 18, 18, "#bd5720"), text(277, 483, "Straight demand", 14, INK), rect(525, 468, 18, 18, COLORS[0]), text(552, 483, "Ideal capacity", 14, INK)]
 svg("fig-capacity.svg", 1000, 510, "".join(body), "Heavy straight-lane demand exceeds capacity")
 
-print("Built six SVG figures")
+print("Built seven SVG figures")

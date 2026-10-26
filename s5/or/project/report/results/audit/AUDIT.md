@@ -23,7 +23,7 @@ The 1-second search evaluated 19,369 feasible timings and selected **26/16/24/14
 | 2028 | 46.8 | 36.9 to 56.7 |
 | 2029 | 56.0 | 46.0 to 66.0 |
 
-These held-out seed checks support the small ten-minute improvement of **these two chosen plans**. They do not prove that either is the true expected-value optimum over its entire grid. The finer search used 128 training runs per timing versus 256 for the coarse search, so grid spacing and training effort were changed together. Its fresh evaluation and alternate-seed checks prevent us from mistaking a low training score alone for evidence of better performance.
+These held-out seed checks support the small ten-minute improvement of **these two chosen plans**. They do not prove that either is the true expected-value optimum over its entire grid. The finer search used 128 training runs per timing versus 256 for the coarse search, so grid spacing and training effort were changed together. Fresh evaluation and alternate-seed checks distinguish out-of-sample performance from a low training score alone.
 
 ## Horizon sensitivity
 
